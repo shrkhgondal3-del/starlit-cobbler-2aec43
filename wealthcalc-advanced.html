@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>WealthCalc Advanced — Platform Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0A0A0A; --navy-d:#000000; --teal:#9C6B2E; --teal-l:#C79A52;
+  --green:#1E8449; --amber:#B9770E; --red:#922B21; --purple:#5B3A1E;
+  --g900:#15151A; --g700:#403D36; --g500:#6b6862; --g300:#d8d3c4; --g200:#e9e5d8; --g100:#f3f1ea;
+  --white:#fff; --radius:3px; --radius-sm:2px;
+  --bg:#f3f1ea; --surface:#fbfaf7; --surface-2:#f3f1ea; --border:#e4e0d4; --text:#15151a; --text-dim:#6b6862;
+  --shadow:0 1px 0 rgba(10,10,10,.04);
+  --shadow-lg:0 10px 28px rgba(10,10,10,.10), 0 2px 6px rgba(10,10,10,.05);
+  --accent-grad:linear-gradient(135deg,#0a0a0a 0%, #1f1a14 55%, #9C6B2E 100%);
+  --ai-grad:linear-gradient(135deg,#15151a 0%, #3d2a14 55%, #9C6B2E 100%);
+  --transition:180ms cubic-bezier(.4,0,.2,1);
+  --serif:'Georgia','Times New Roman',serif;
+}
+html[data-theme="dark"]{
+  --bg:#0c0c10; --surface:#15151a; --surface-2:#1b1b21; --border:#2c2a26; --text:#ece9e1; --text-dim:#a9a59c;
+  --g100:#1f1f25; --g200:#2c2a26; --g300:#46433c; --g700:#cfcbc1; --g900:#f4f2ec;
+  --shadow:0 1px 0 rgba(0,0,0,.4);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{font-family:'Inter',-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);transition:background var(--transition),color var(--transition);}
+h1.pagetitle,.card h3,.brand,.kpi .v,.banner-ai h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;}
+a{color:inherit;}
+svg{display:block;}
+.icon{width:17px;height:17px;flex-shrink:0;}
+
+/* ---------- Topbar ---------- */
+.topbar{background:var(--accent-grad);color:#fff;padding:0 22px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60;box-shadow:0 2px 14px rgba(0,0,0,.18);}
+.topbar-left,.topbar-right{display:flex;align-items:center;gap:8px;}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;letter-spacing:.2px;}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--teal-l);box-shadow:0 0 10px var(--teal-l);}
+.badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;margin-left:6px;letter-spacing:.04em;}
+.iconbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;width:36px;height:36px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background var(--transition),transform var(--transition);}
+.iconbtn:hover{background:rgba(255,255,255,.18);}
+.iconbtn:active{transform:scale(.93);}
+.iconbtn.wide{width:auto;padding:0 12px;font-size:12px;font-weight:600;}
+.kbd{font-size:10px;opacity:.8;border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:1px 5px;}
+.toplinks{display:flex;gap:6px;align-items:center;margin-left:6px;}
+.toplinks button{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:8px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;transition:all var(--transition);}
+.toplinks button.active{background:#fff;border-color:#fff;color:var(--navy-d);}
+.toplinks button:hover:not(.active){border-color:#fff;background:rgba(255,255,255,.1);}
+
+/* ---------- Layout ---------- */
+.layout{display:flex;min-height:calc(100vh - 58px);position:relative;}
+.sidebar{width:252px;background:var(--surface);border-right:1px solid var(--border);padding:16px 10px 24px;flex-shrink:0;overflow-y:auto;transition:margin-left var(--transition),background var(--transition),border-color var(--transition);}
+.sidebar.collapsed{margin-left:-252px;}
+.sidebar h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-dim);margin:18px 10px 8px;font-weight:700;}
+.navitem{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:13.3px;font-weight:600;color:var(--text-dim);margin-bottom:2px;transition:background var(--transition),color var(--transition);position:relative;}
+.navitem:hover{background:var(--g100);color:var(--text);}
+.navitem.active{background:var(--navy);color:#fff;}
+html[data-theme="dark"] .navitem.active{background:var(--teal);}
+.navitem .ic{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.navitem .ic svg{width:16px;height:16px;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:40;}
+.sidebar-overlay.show{display:block;}
+
+.main{flex:1;padding:26px 32px 60px;max-width:1180px;width:100%;}
+.view{display:none;}
+.view.active{display:block;animation:viewIn .32s cubic-bezier(.4,0,.2,1);}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+h1.pagetitle{font-size:23px;margin:0 0 4px;color:var(--text);font-weight:800;letter-spacing:-.2px;}
+.subtitle{color:var(--text-dim);font-size:13.5px;margin-bottom:22px;line-height:1.5;}
+.grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+/* ---------- Cards ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:18px;box-shadow:var(--shadow);transition:box-shadow var(--transition),border-color var(--transition),background var(--transition);}
+.card:hover{box-shadow:var(--shadow-lg);}
+.card h3{margin:0 0 14px;font-size:14.5px;color:var(--text);display:flex;align-items:center;gap:8px;font-weight:700;}
+.card h3 .ic svg{width:16px;height:16px;color:var(--teal);}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:5px;}
+.field input,.field select{width:100%;padding:9px 11px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13.5px;background:var(--surface-2);color:var(--text);transition:border-color var(--transition),box-shadow var(--transition);}
+.field input:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(156,107,46,.18);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.btn{background:var(--teal);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-weight:700;font-size:13.3px;cursor:pointer;transition:background var(--transition),transform var(--transition),box-shadow var(--transition);box-shadow:0 1px 2px rgba(0,0,0,.08);}
+.btn:hover{background:var(--teal-l);box-shadow:0 4px 12px rgba(156,107,46,.3);}
+.btn:active{transform:scale(.97);}
+.btn.navybtn{background:var(--navy);}
+.btn.navybtn:hover{background:#262422;box-shadow:0 4px 12px rgba(10,10,10,.35);}
+.btn.outline{background:transparent;color:var(--teal);border:1.5px solid var(--teal);box-shadow:none;}
+.btn.outline:hover{background:rgba(156,107,46,.08);}
+.btn.full{width:100%;}
+
+.kpi{background:var(--accent-grad);color:#fff;border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow);}
+.kpi .v{font-size:21px;font-weight:800;letter-spacing:-.3px;}
+.kpi .l{font-size:10.5px;opacity:.88;text-transform:uppercase;letter-spacing:.05em;margin-top:4px;}
+
+.pill{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;vertical-align:middle;}
+.pill.ai{background:#f3ead9;color:#6b4423;}
+.pill.new{background:#ecfdf5;color:var(--green);}
+.pill.live{background:#fef3c7;color:#92400e;}
+html[data-theme="dark"] .pill.ai{background:rgba(156,107,46,.2);color:#d9b97e;}
+html[data-theme="dark"] .pill.new{background:rgba(30,132,73,.18);color:#6ee7a8;}
+html[data-theme="dark"] .pill.live{background:rgba(184,108,14,.2);color:#fbbf6a;}
+
+table{width:100%;border-collapse:collapse;font-size:12.8px;}
+table th{text-align:left;background:var(--g100);padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);font-weight:700;}
+table td{padding:9px 10px;border-bottom:1px solid var(--g100);color:var(--text);}
+table tr:last-child td{border-bottom:none;}
+
+.banner-ai{background:var(--ai-grad);color:#fff;border-radius:var(--radius);padding:22px;margin-bottom:18px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;}
+.banner-ai h2{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:8px;}
+.banner-ai p{margin:0;opacity:.92;font-size:13.3px;}
+.chatbox{background:rgba(255,255,255,.97);border-radius:var(--radius-sm);padding:14px;color:var(--g900);margin-top:14px;}
+.chatbox textarea{width:100%;border:1px solid var(--g300);border-radius:7px;padding:10px;font-size:13.3px;font-family:inherit;resize:vertical;min-height:60px;background:#fff;color:#1a1a1a;}
+
+.aiSummary{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;font-size:13.3px;line-height:1.65;color:var(--text-dim);margin-top:12px;display:none;}
+.aiSummary.show{display:block;animation:viewIn .3s;}
+.typing::after{content:'';display:inline-block;width:6px;height:6px;margin-left:4px;border-radius:50%;background:currentColor;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:.2;}50%{opacity:1;}}
+
+.connectbox{display:flex;align-items:center;gap:14px;padding:14px;border:1.5px dashed var(--border);border-radius:var(--radius-sm);margin-bottom:14px;transition:all var(--transition);}
+.connectbox.connected{border-color:var(--green);background:rgba(30,132,73,.06);border-style:solid;}
+.dot-status{width:10px;height:10px;border-radius:50%;background:var(--g300);transition:background var(--transition);}
+.dot-status.on{background:var(--green);box-shadow:0 0 8px rgba(30,132,73,.5);}
+.audit-row{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--g100);font-size:12.3px;}
+.audit-row:last-child{border-bottom:none;}
+.audit-row .t{color:var(--text-dim);min-width:96px;}
+.audit-row .who{font-weight:700;color:var(--text);}
+.note{font-size:12px;color:var(--text-dim);background:var(--g100);padding:10px 12px;border-radius:var(--radius-sm);margin-top:10px;line-height:1.5;}
+.flexbar{display:flex;justify-content:space-between;align-items:center;}
+canvas{max-height:240px;}
+
+/* ---------- Toasts ---------- */
+.toast-container{position:fixed;bottom:22px;right:22px;z-index:200;display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+.toast{background:var(--surface);color:var(--text);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;box-shadow:var(--shadow-lg);max-width:340px;display:flex;gap:10px;align-items:flex-start;animation:toastIn .25s cubic-bezier(.4,0,.2,1);}
+.toast.success{border-left-color:var(--green);}
+.toast.info{border-left-color:var(--teal);}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+.toast.out{animation:toastOut .25s forwards;}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px);}}
+.toast .ic{flex-shrink:0;margin-top:1px;}
+.toast .ic svg{width:17px;height:17px;color:var(--teal);}
+.toast.success .ic svg{color:var(--green);}
+
+/* ---------- Command palette ---------- */
+.cmd-overlay{position:fixed;inset:0;background:rgba(8,12,22,.55);backdrop-filter:blur(2px);z-index:150;display:none;align-items:flex-start;justify-content:center;padding-top:12vh;}
+.cmd-overlay.show{display:flex;animation:fadeBg .15s;}
+@keyframes fadeBg{from{opacity:0;}to{opacity:1;}}
+.cmd-box{background:var(--surface);width:min(560px,88vw);border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;border:1px solid var(--border);animation:viewIn .18s;}
+.cmd-box input{width:100%;border:none;padding:16px 18px;font-size:15px;outline:none;background:var(--surface);color:var(--text);border-bottom:1px solid var(--border);}
+.cmd-list{max-height:340px;overflow-y:auto;padding:6px;}
+.cmd-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--text);}
+.cmd-item .ic svg{width:16px;height:16px;color:var(--text-dim);}
+.cmd-item:hover,.cmd-item.sel{background:var(--g100);}
+.cmd-item .grp{margin-left:auto;font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;}
+.cmd-empty{padding:24px;text-align:center;color:var(--text-dim);font-size:13px;}
+
+.lock-overlay{position:relative;}
+.lock-tag{position:absolute;top:10px;right:10px;background:var(--navy);color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;}
+
+@media(max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .sidebar{position:fixed;top:58px;left:0;bottom:0;z-index:50;margin-left:-252px;box-shadow:var(--shadow-lg);}
+  .sidebar.mobile-open{margin-left:0;}
+  .main{padding:20px 16px 50px;}
+  .toplinks button{padding:7px 10px;font-size:11.5px;}
+  .brand{font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<div id="cmdPalette" class="cmd-overlay" onclick="if(event.target===this) closeCmdPalette()">
+  <div class="cmd-box">
+    <input id="cmdInput" placeholder="Search calculators & views… (Esc to close)" autocomplete="off" oninput="filterCmd()" onkeydown="cmdKeydown(event)">
+    <div id="cmdList" class="cmd-list"></div>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="iconbtn" id="menuToggle" onclick="toggleSidebar()" title="Toggle menu">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="brand"><span class="dot"></span> WealthCalc <span class="badge">ADVANCED</span></div>
+  </div>
+  <div class="topbar-right">
+    <button class="iconbtn wide" onclick="openCmdPalette()" title="Search">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span class="kbd">⌘K</span>
+    </button>
+    <button class="iconbtn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode"></button>
+    <div class="toplinks">
+      <button id="advViewBtn" class="active" onclick="setMode('adviser')">Adviser View</button>
+      <button id="cliViewBtn" onclick="setMode('client')">Client Portal</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar" id="sidebar">
+    <h4>AI & Insights</h4>
+    <div class="navitem active" data-view="ai" onclick="showView('ai')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.8L18.4 9.4 13.6 11l-1.6 4.8L10.4 11 5.6 9.4l4.8-1.6L12 3z"/><path d="M19 15l.8 2.4L22.2 18l-2.4.8L19 21l-.8-2.2L15.8 18l2.4-.6L19 15z"/></svg></span>
+      AI Insights <span class="pill ai" style="margin-left:auto;">AI</span>
+    </div>
+
+    <h4>New Calculator Modules</h4>
+    <div class="navitem" data-view="education" onclick="showView('education')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9L12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+      Education Funding
+    </div>
+    <div class="navitem" data-view="debt" onclick="showView('debt')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
+      Debt Payoff Optimizer
+    </div>
+    <div class="navitem" data-view="pension" onclick="showView('pension')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9M19 10v9M9 10v9M15 10v9"/><path d="M3 21h18"/></svg></span>
+      Pension Transfer (DB→DC)
+    </div>
+    <div class="navitem" data-view="exit" onclick="showView('exit')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+      Business Exit Planner
+    </div>
+    <div class="navitem" data-view="life" onclick="showView('life')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span>
+      Life Insurance Needs
+    </div>
+    <div class="navitem" data-view="crypto" onclick="showView('crypto')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 6-3 12H7L4 8l8-6z"/><path d="M4 8h16M9 8l-2 12M15 8l2 12M12 2v6"/></svg></span>
+      Digital Asset Estate
+    </div>
+
+    <h4>Live Data</h4>
+    <div class="navitem" data-view="banking" onclick="showView('banking')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><rect x="4" y="10" width="16" height="9" rx="1"/><line x1="2" y1="21" x2="22" y2="21"/></svg></span>
+      Open Banking Connect
+    </div>
+
+    <h4>Trust & Compliance</h4>
+    <div class="navitem" data-view="audit" onclick="showView('audit')">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+      Audit Trail
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- ============ AI INSIGHTS ============ -->
+    <div class="view active" id="view-ai">
+      <h1 class="pagetitle">AI Insights Layer</h1>
+      <div class="subtitle">Natural-language plan entry, AI-generated client narrative, and meeting prep — no competitor in this category offers this.</div>
+
+      <div class="banner-ai">
+        <h2>✦ Describe the client's situation in plain English</h2>
+        <p>The AI parses your sentence and pre-fills the relevant calculator. Try editing the example below.</p>
+        <div class="chatbox">
+          <textarea id="nlInput">Client is 42, wants to retire at 60 with £45,000/year income. Has £180,000 saved, contributing £800/month. Owns a £420,000 home with £160,000 mortgage left.</textarea>
+          <div style="margin-top:10px;display:flex;gap:10px;">
+            <button class="btn" onclick="parseNL()">Parse with AI →</button>
+            <button class="btn outline" onclick="document.getElementById('nlInput').value=''">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="nlResultCard" style="display:none;">
+        <h3>🔎 Extracted Plan Inputs</h3>
+        <table id="nlTable"></table>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>📝 AI Report Writer</h3>
+          <p style="font-size:13px;color:var(--text-dim);">Turns the numbers from any calculator into a client-ready plain-English summary letter in one click.</p>
+          <button class="btn full" onclick="generateAISummary()">Generate Client Summary</button>
+          <div class="aiSummary" id="aiSummaryBox"></div>
+        </div>
+        <div class="card">
+          <h3>💬 Client "What-If" Assistant</h3>
+          <p style="font-size:13px;color:var(--text-dim);">Simulated preview — in production this connects to the client's live plan data.</p>
+          <div class="field"><label>Ask a question about this plan</label>
+            <input id="whatifQ" placeholder="e.g. What if I retire 2 years early?">
+          </div>
+          <button class="btn navybtn full" onclick="answerWhatIf()">Ask</button>
+          <div class="aiSummary" id="whatifBox"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📅 Meeting-Prep Assistant</h3>
+        <div class="flexbar" style="margin-bottom:10px;">
+          <span style="font-size:13px;color:var(--text-dim);">Auto-generated talking points for the next review meeting</span>
+          <button class="btn outline" onclick="genMeetingPrep()">Regenerate</button>
+        </div>
+        <ul id="meetingPrepList" style="font-size:13px;color:var(--text-dim);line-height:1.7;"></ul>
+      </div>
+    </div>
+
+    <!-- ============ EDUCATION FUNDING ============ -->
+    <div class="view" id="view-education">
+      <h1 class="pagetitle">Education Funding Calculator <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Future cost of education with inflation, and the monthly savings needed to hit the goal.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Inputs</h3>
+          <div class="row2">
+            <div class="field"><label>Child's current age</label><input type="number" id="eduAge" value="6"></div>
+            <div class="field"><label>Age education starts</label><input type="number" id="eduStartAge" value="18"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Annual cost today (£)</label><input type="number" id="eduCost" value="12000"></div>
+            <div class="field"><label>Duration (years)</label><input type="number" id="eduYears" value="4"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Education inflation (%/yr)</label><input type="number" id="eduInfl" value="5" step="0.1"></div>
+            <div class="field"><label>Current savings (£)</label><input type="number" id="eduSaved" value="8000"></div>
+          </div>
+          <div class="field"><label>Expected growth rate (%/yr)</label><input type="number" id="eduGrowth" value="5" step="0.1"></div>
+          <button class="btn full" onclick="calcEducation()">Calculate</button>
+        </div>
+        <div class="card">
+          <h3>Result</h3>
+          <div class="grid3" style="margin-bottom:14px;">
+            <div class="kpi"><div class="v" id="eduFutureCost">—</div><div class="l">Future Total Cost</div></div>
+            <div class="kpi"><div class="v" id="eduGap">—</div><div class="l">Shortfall vs Saved</div></div>
+            <div class="kpi"><div class="v" id="eduMonthly">—</div><div class="l">Monthly Saving Needed</div></div>
+          </div>
+          <canvas id="eduChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DEBT PAYOFF ============ -->
+    <div class="view" id="view-debt">
+      <h1 class="pagetitle">Debt Payoff & Consolidation Optimizer <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Avalanche vs. snowball strategy comparison, plus a consolidation-loan check.</div>
+      <div class="card">
+        <h3>Debts</h3>
+        <table id="debtTable">
+          <tr><th>Debt</th><th>Balance (£)</th><th>Rate (%)</th><th>Min Payment (£)</th><th></th></tr>
+        </table>
+        <button class="btn outline" style="margin-top:10px;" onclick="addDebtRow()">+ Add Debt</button>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Extra Monthly Payment</h3>
+          <div class="field"><label>Extra budget toward debt (£/month)</label><input type="number" id="debtExtra" value="200"></div>
+          <button class="btn full" onclick="calcDebt()">Compare Strategies</button>
+        </div>
+        <div class="card">
+          <h3>Result</h3>
+          <table id="debtResultTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PENSION TRANSFER ============ -->
+    <div class="view" id="view-pension">
+      <h1 class="pagetitle">DB → DC Pension Transfer Analysis <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Critical yield estimate — the return the DC pot would need to match the DB scheme's value.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Inputs</h3>
+          <div class="row2">
+            <div class="field"><label>Cash Equivalent Transfer Value (£)</label><input type="number" id="penCETV" value="450000"></div>
+            <div class="field"><label>Current age</label><input type="number" id="penAge" value="55"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>DB annual pension at NRA (£)</label><input type="number" id="penDB" value="22000"></div>
+            <div class="field"><label>Normal retirement age</label><input type="number" id="penNRA" value="65"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>DB escalation (%/yr)</label><input type="number" id="penEsc" value="2.5" step="0.1"></div>
+            <div class="field"><label>Spouse pension on death (%)</label><input type="number" id="penSpouse" value="50"></div>
+          </div>
+          <button class="btn full" onclick="calcPension()">Calculate Critical Yield</button>
+        </div>
+        <div class="card">
+          <h3>Result</h3>
+          <div class="grid3" style="margin-bottom:14px;">
+            <div class="kpi"><div class="v" id="penYield">—</div><div class="l">Critical Yield Required</div></div>
+            <div class="kpi"><div class="v" id="penYears">—</div><div class="l">Years to NRA</div></div>
+            <div class="kpi"><div class="v" id="penAssess">—</div><div class="l">Transfer Assessment</div></div>
+          </div>
+          <div class="note" id="penNote"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BUSINESS EXIT ============ -->
+    <div class="view" id="view-exit">
+      <h1 class="pagetitle">Business Exit & Succession Planner <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Valuation by EBITDA multiple and estimated net proceeds after tax.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Inputs</h3>
+          <div class="row2">
+            <div class="field"><label>Annual EBITDA (£)</label><input type="number" id="exEbitda" value="350000"></div>
+            <div class="field"><label>Industry multiple (x)</label><input type="number" id="exMultiple" value="5.5" step="0.1"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Net debt (£)</label><input type="number" id="exDebt" value="80000"></div>
+            <div class="field"><label>Earn-out % held back</label><input type="number" id="exEarnout" value="20"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Business Asset Disposal Relief?</label>
+              <select id="exBADR"><option value="yes">Yes (10% rate, up to £1m)</option><option value="no">No (standard CGT 20%)</option></select>
+            </div>
+            <div class="field"><label>Original cost base (£)</label><input type="number" id="exCost" value="20000"></div>
+          </div>
+          <button class="btn full" onclick="calcExit()">Calculate Exit Value</button>
+        </div>
+        <div class="card">
+          <h3>Result</h3>
+          <div class="grid3" style="margin-bottom:14px;">
+            <div class="kpi"><div class="v" id="exEV">—</div><div class="l">Enterprise Value</div></div>
+            <div class="kpi"><div class="v" id="exUpfront">—</div><div class="l">Upfront Cash</div></div>
+            <div class="kpi"><div class="v" id="exNet">—</div><div class="l">Net After Tax</div></div>
+          </div>
+          <table id="exitTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ LIFE INSURANCE ============ -->
+    <div class="view" id="view-life">
+      <h1 class="pagetitle">Life Insurance Needs Calculator <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Income replacement + debt coverage + dependents' costs, less existing cover and assets.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Inputs</h3>
+          <div class="row2">
+            <div class="field"><label>Annual income to replace (£)</label><input type="number" id="liIncome" value="55000"></div>
+            <div class="field"><label>Years of replacement needed</label><input type="number" id="liYears" value="15"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Outstanding debts (£)</label><input type="number" id="liDebt" value="180000"></div>
+            <div class="field"><label>Children's future costs (£)</label><input type="number" id="liKids" value="60000"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Existing cover (£)</label><input type="number" id="liExisting" value="100000"></div>
+            <div class="field"><label>Liquid assets (£)</label><input type="number" id="liAssets" value="40000"></div>
+          </div>
+          <button class="btn full" onclick="calcLife()">Calculate Cover Needed</button>
+        </div>
+        <div class="card">
+          <h3>Result</h3>
+          <div class="kpi" style="margin-bottom:14px;"><div class="v" id="liNeed">—</div><div class="l">Additional Cover Needed</div></div>
+          <table id="liTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DIGITAL ASSETS ============ -->
+    <div class="view" id="view-crypto">
+      <h1 class="pagetitle">Digital Asset Estate Module <span class="pill new">NEW</span></h1>
+      <div class="subtitle">Brings crypto and digital assets into the estate tax and succession picture.</div>
+      <div class="card">
+        <h3>Digital Asset Holdings</h3>
+        <table id="cryptoTable">
+          <tr><th>Asset</th><th>Value (£)</th><th>Access Method</th><th>Beneficiary Named?</th><th></th></tr>
+        </table>
+        <button class="btn outline" style="margin-top:10px;" onclick="addCryptoRow()">+ Add Asset</button>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Estate Impact</h3>
+          <div class="kpi"><div class="v" id="cryptoTotal">£0</div><div class="l">Total Digital Asset Value (in estate)</div></div>
+          <div class="note">Digital assets without a documented access method or named beneficiary are at high risk of being permanently lost on death — this is flagged automatically below.</div>
+        </div>
+        <div class="card">
+          <h3>Risk Flags</h3>
+          <div id="cryptoFlags" style="font-size:13px;color:var(--text-dim);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ OPEN BANKING ============ -->
+    <div class="view" id="view-banking">
+      <h1 class="pagetitle">Open Banking Connect <span class="pill live">LIVE DATA</span></h1>
+      <div class="subtitle">Pull real account balances instead of manual entry — removes the #1 adviser time cost. (Simulated for this preview.)</div>
+      <div class="connectbox" id="bankConnectBox">
+        <span class="dot-status" id="bankDot"></span>
+        <div style="flex:1;">
+          <div style="font-weight:700;" id="bankStatusText">Not connected</div>
+          <div style="font-size:12px;color:var(--text-dim);">Connect via Plaid / TrueLayer / Yodlee (region-aware)</div>
+        </div>
+        <button class="btn" id="bankConnectBtn" onclick="connectBank()">Connect Bank Account</button>
+      </div>
+      <div class="card" id="bankAccountsCard" style="display:none;">
+        <h3>Connected Accounts</h3>
+        <table id="bankTable"></table>
+        <div class="flexbar" style="margin-top:14px;">
+          <strong>Total Net Worth (live)</strong>
+          <strong id="bankTotal" style="color:var(--green);font-size:16px;"></strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ AUDIT TRAIL ============ -->
+    <div class="view" id="view-audit">
+      <h1 class="pagetitle">Audit Trail & Version History <span class="pill new">COMPLIANCE</span></h1>
+      <div class="subtitle">Every change to a plan is timestamped and attributable — required for enterprise and regulatory buyers.</div>
+      <div class="card">
+        <h3>Activity Log — Client: J. Henderson Retirement Plan</h3>
+        <div id="auditLog"></div>
+        <button class="btn outline full" style="margin-top:12px;" onclick="addAuditEntry()">+ Simulate New Plan Edit</button>
+      </div>
+      <div class="card">
+        <h3>One-Click Compliance Report</h3>
+        <p style="font-size:13px;color:var(--text-dim);">Auto-generates a suitability / consumer-duty document from the current plan data and audit history.</p>
+        <button class="btn navybtn full" onclick="generateSuitabilityReport()">Generate Suitability Report</button>
+      </div>
+    </div>
+
+    <!-- ============ CLIENT PORTAL (separate full view) ============ -->
+    <div class="view" id="view-clientportal">
+      <h1 class="pagetitle">Client Portal Preview</h1>
+      <div class="subtitle">What the end client sees when they log in directly — this is the feature that creates real switching-cost lock-in.</div>
+      <div class="grid3" style="margin-bottom:18px;">
+        <div class="kpi"><div class="v">78%</div><div class="l">On-Track Probability</div></div>
+        <div class="kpi"><div class="v">£612,400</div><div class="l">Projected Pot at 65</div></div>
+        <div class="kpi"><div class="v">£45,000</div><div class="l">Target Annual Income</div></div>
+      </div>
+      <div class="card">
+        <h3>Your Plan, In Plain English</h3>
+        <p style="font-size:13.5px;line-height:1.7;color:var(--text-dim);">
+        Hi James — based on your current contributions of £800/month and your existing £180,000 pot, you're on track to retire at 60 with a 78% probability
+        of meeting your £45,000/year income goal. Increasing contributions by just £120/month would lift this to 91%. Your adviser was last notified of
+        this update on the date shown in the audit trail.</p>
+      </div>
+      <div class="card">
+        <h3>Document Vault</h3>
+        <table><tr><th>Document</th><th>Date</th><th>Status</th></tr>
+        <tr><td>Annual Review Summary 2026</td><td>14 Jun 2026</td><td>✅ Signed</td></tr>
+        <tr><td>Suitability Report</td><td>14 Jun 2026</td><td>✅ Signed</td></tr>
+        <tr><td>Updated Will Reference</td><td>02 Mar 2026</td><td>⏳ Awaiting signature</td></tr>
+        </table>
+      </div>
+      <div class="note">This client-facing view is read-only and pulls live from the adviser's plan — no separate data entry required.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const fmt = n => '£' + Number(n).toLocaleString(undefined,{maximumFractionDigits:0});
+const fmtPct = n => Number(n).toFixed(2)+'%';
+
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  document.querySelectorAll('.navitem').forEach(n=>n.classList.remove('active'));
+  const item = document.querySelector('.navitem[data-view="'+id+'"]');
+  if(item) item.classList.add('active');
+  if(window.innerWidth<=900){ document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
+}
+
+function setMode(mode){
+  document.getElementById('advViewBtn').classList.toggle('active', mode==='adviser');
+  document.getElementById('cliViewBtn').classList.toggle('active', mode==='client');
+  document.getElementById('sidebar').style.display = mode==='adviser' ? 'block' : 'none';
+  if(mode==='client'){ showView('clientportal'); }
+  else { showView('ai'); }
+}
+
+/* ---------------- AI Insights ---------------- */
+function parseNL(){
+  const txt = document.getElementById('nlInput').value;
+  const age = (txt.match(/(\d+)\s*,?\s*wants|client is (\d+)/i)||txt.match(/(\d+)\s*(?:,|years old)/))?.[1] || (txt.match(/is (\d+)/i)||[])[1] || '42';
+  const retireAge = (txt.match(/retire at (\d+)/i)||[])[1] || '60';
+  const income = (txt.match(/£([\d,]+)\s*\/\s*year|£([\d,]+)\/year/i)||[])[1] || (txt.match(/£([\d,]+)\/year/i)||[])[1] || '45,000';
+  const saved = (txt.match(/has £([\d,]+) saved/i)||[])[1] || '180,000';
+  const contrib = (txt.match(/contributing £([\d,]+)/i)||[])[1] || '800';
+  const homeVal = (txt.match(/£([\d,]+) home/i)||[])[1] || '420,000';
+  const mortgage = (txt.match(/£([\d,]+) mortgage/i)||[])[1] || '160,000';
+
+  const rowsData = [
+    ['Current Age', age],
+    ['Target Retirement Age', retireAge],
+    ['Target Annual Income', '£'+income],
+    ['Current Savings', '£'+saved],
+    ['Monthly Contribution', '£'+contrib],
+    ['Home Value', '£'+homeVal],
+    ['Outstanding Mortgage', '£'+mortgage],
+  ];
+  let html = '<tr><th>Field</th><th>AI-Extracted Value</th></tr>';
+  rowsData.forEach(r=> html += `<tr><td>${r[0]}</td><td><strong>${r[1]}</strong></td></tr>`);
+  document.getElementById('nlTable').innerHTML = html;
+  document.getElementById('nlResultCard').style.display = 'block';
+  toast('Plan inputs extracted from natural language.', 'success');
+}
+
+function generateAISummary(){
+  const box = document.getElementById('aiSummaryBox');
+  box.innerHTML = '<span class="typing">✦ Generating…</span>';
+  box.classList.add('show');
+  setTimeout(()=>{
+    box.innerHTML = `<strong>Client Summary — Retirement Plan</strong><br><br>
+    Based on the figures modelled today, you are projected to reach <strong>£612,400</strong> by age 60, giving roughly a
+    <strong>78% probability</strong> of sustaining your target £45,000/year income through retirement. The single biggest lever available to you
+    is increasing your monthly contribution — an extra £120/month would lift your probability of success to approximately 91%.
+    Your mortgage is on track to be cleared 3 years before your target retirement date, which materially improves your post-retirement cash flow.
+    We recommend revisiting this plan in 12 months or sooner if your income or goals change.`;
+  }, 900);
+}
+
+function answerWhatIf(){
+  const q = document.getElementById('whatifQ').value || 'What if I retire 2 years early?';
+  const box = document.getElementById('whatifBox');
+  box.classList.add('show');
+  box.innerHTML = '<span class="typing">✦ Thinking…</span>';
+  setTimeout(()=>{
+    box.innerHTML = `<strong>Q: ${q}</strong><br><br>Retiring 2 years early (at 58 instead of 60) reduces your projected pot at retirement to approximately
+    <strong>£548,900</strong> and lowers your probability of meeting your £45,000/year income target to around <strong>64%</strong>. Closing this gap would
+    require either an extra £310/month in contributions starting now, or reducing your target income to roughly £39,500/year.`;
+  }, 900);
+}
+
+function genMeetingPrep(){
+  const items = [
+    'Pot grew 6.2% since last review — ahead of the 5% plan assumption.',
+    'Mortgage overpayments are tracking 8 months ahead of schedule.',
+    'Flag: client mentioned a possible house move in the last email — confirm before updating cashflow.',
+    'Opportunity: ISA allowance for this tax year is only 40% used — discuss top-up before April.',
+    'Estate tax exposure increased by £18,400 due to property value growth — review gifting strategy.'
+  ];
+  document.getElementById('meetingPrepList').innerHTML = items.map(i=>'<li>'+i+'</li>').join('');
+}
+genMeetingPrep();
+
+/* ---------------- Education Funding ---------------- */
+function calcEducation(){
+  const startAge = +document.getElementById('eduStartAge').value;
+  const age = +document.getElementById('eduAge').value;
+  const cost = +document.getElementById('eduCost').value;
+  const years = +document.getElementById('eduYears').value;
+  const infl = +document.getElementById('eduInfl').value/100;
+  const saved = +document.getElementById('eduSaved').value;
+  const growth = +document.getElementById('eduGrowth').value/100;
+  const yearsToStart = Math.max(startAge-age,0);
+
+  let futureCost=0, series=[];
+  for(let y=0;y<years;y++){
+    const c = cost*Math.pow(1+infl, yearsToStart+y);
+    futureCost += c;
+    series.push(c);
+  }
+  const futureSavings = saved*Math.pow(1+growth, yearsToStart);
+  const gap = Math.max(futureCost-futureSavings,0);
+  // monthly saving needed (future value of annuity)
+  const r = growth/12, n = yearsToStart*12;
+  const monthly = r>0 ? gap*r/(Math.pow(1+r,n)-1) : gap/n;
+
+  document.getElementById('eduFutureCost').textContent = fmt(futureCost);
+  document.getElementById('eduGap').textContent = fmt(gap);
+  document.getElementById('eduMonthly').textContent = fmt(monthly);
+
+  if(window.eduChartObj) window.eduChartObj.destroy();
+  const ctx = document.getElementById('eduChart');
+  const gridColor = document.documentElement.getAttribute('data-theme')==='dark' ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.06)';
+  const tickColor = document.documentElement.getAttribute('data-theme')==='dark' ? '#9aa7bd' : '#6b7280';
+  window.eduChartObj = new Chart(ctx,{type:'bar',data:{labels:series.map((_,i)=>'Year '+(i+1)),
+    datasets:[{label:'Cost per year (inflated)',data:series,backgroundColor:'#9C6B2E',borderRadius:2}]},
+    options:{plugins:{legend:{display:false}},scales:{
+      y:{ticks:{callback:v=>'£'+(v/1000)+'k', color:tickColor},grid:{color:gridColor}},
+      x:{ticks:{color:tickColor},grid:{display:false}}
+    }}});
+}
+calcEducation();
+
+/* ---------------- Debt Payoff ---------------- */
+let debtRows = [
+  {name:'Credit Card', bal:6500, rate:22.9, min:180},
+  {name:'Car Loan', bal:9200, rate:7.5, min:240},
+  {name:'Personal Loan', bal:4000, rate:11.9, min:130},
+];
+function renderDebtTable(){
+  const t = document.getElementById('debtTable');
+  let html = '<tr><th>Debt</th><th>Balance (£)</th><th>Rate (%)</th><th>Min Payment (£)</th><th></th></tr>';
+  debtRows.forEach((d,i)=>{
+    html += `<tr>
+      <td><input value="${d.name}" onchange="debtRows[${i}].name=this.value" style="width:100%;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><input type="number" value="${d.bal}" onchange="debtRows[${i}].bal=+this.value" style="width:90px;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><input type="number" value="${d.rate}" step="0.1" onchange="debtRows[${i}].rate=+this.value" style="width:70px;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><input type="number" value="${d.min}" onchange="debtRows[${i}].min=+this.value" style="width:80px;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><a href="#" onclick="debtRows.splice(${i},1);renderDebtTable();return false;">✕</a></td>
+    </tr>`;
+  });
+  t.innerHTML = html;
+}
+function addDebtRow(){ debtRows.push({name:'New Debt',bal:1000,rate:10,min:50}); renderDebtTable(); }
+renderDebtTable();
+
+function simulatePayoff(order, extra){
+  let debts = JSON.parse(JSON.stringify(order));
+  let months=0, totalInterest=0;
+  let extraPool = extra;
+  while(debts.some(d=>d.bal>0) && months<600){
+    months++;
+    let freedUp = 0;
+    debts.forEach(d=>{
+      if(d.bal<=0) return;
+      const interest = d.bal*(d.rate/100/12);
+      totalInterest += interest;
+      d.bal += interest;
+    });
+    let pool = extraPool;
+    for(const d of debts){
+      if(d.bal<=0) continue;
+      let pay = d.min + (d===debts.find(x=>x.bal>0) ? pool : 0);
+      pay = Math.min(pay, d.bal);
+      d.bal -= pay;
+      if(d===debts.find(x=>x.min===d.min) ) {}
+    }
+    // simplistic: apply extra to first unpaid in given order
+    for(const d of debts){
+      if(d.bal>0){ const add=Math.min(pool,d.bal); d.bal-=add; pool=0; break;}
+    }
+  }
+  return {months, totalInterest};
+}
+function calcDebt(){
+  const extra = +document.getElementById('debtExtra').value;
+  const avalanche = [...debtRows].sort((a,b)=>b.rate-a.rate);
+  const snowball = [...debtRows].sort((a,b)=>a.bal-b.bal);
+  const ra = simulatePayoff(avalanche, extra);
+  const rs = simulatePayoff(snowball, extra);
+  const totalBal = debtRows.reduce((s,d)=>s+d.bal,0);
+  const totalMin = debtRows.reduce((s,d)=>s+d.min,0);
+  let html = `<tr><th>Strategy</th><th>Payoff Time</th><th>Total Interest</th></tr>
+  <tr><td><strong>Avalanche</strong> (highest rate first)</td><td>${ra.months} months</td><td>${fmt(ra.totalInterest)}</td></tr>
+  <tr><td><strong>Snowball</strong> (smallest balance first)</td><td>${rs.months} months</td><td>${fmt(rs.totalInterest)}</td></tr>
+  <tr><td colspan="3" style="font-size:11.5px;color:var(--text-dim);padding-top:10px;">Total balance: ${fmt(totalBal)} · Minimum payments: ${fmt(totalMin)}/mo · Extra applied: ${fmt(extra)}/mo</td></tr>`;
+  document.getElementById('debtResultTable').innerHTML = html;
+}
+calcDebt();
+
+/* ---------------- Pension Transfer ---------------- */
+function calcPension(){
+  const cetv = +document.getElementById('penCETV').value;
+  const age = +document.getElementById('penAge').value;
+  const db = +document.getElementById('penDB').value;
+  const nra = +document.getElementById('penNRA').value;
+  const esc = +document.getElementById('penEsc').value/100;
+  const yearsToNRA = Math.max(nra-age,0);
+  const lifeExp = 87; // simplifying assumption
+  const payoutYears = Math.max(lifeExp-nra,1);
+
+  // approximate critical yield: rate r such that CETV grown to NRA, then drawn down for payoutYears
+  // at withdrawal db, growing with esc, equals zero. Solve iteratively.
+  let lo=0, hi=0.25, r=0.05;
+  for(let iter=0; iter<60; iter++){
+    r=(lo+hi)/2;
+    let pot = cetv*Math.pow(1+r, yearsToNRA);
+    let bal = pot;
+    for(let y=0;y<payoutYears;y++){
+      bal = bal*(1+r) - db*Math.pow(1+esc,y);
+    }
+    if(bal>0) hi=r; else lo=r;
+  }
+  const yieldPct = r*100;
+  let assessment, note;
+  if(yieldPct < 3){ assessment='Transfer Favourable'; note='Critical yield is low — the DC pot has a realistic chance of matching DB benefits at typical long-term growth assumptions. Still requires full suitability analysis.'; }
+  else if(yieldPct < 6){ assessment='Borderline'; note='Critical yield sits in the typical 3-6% advice zone — outcome depends heavily on investment returns achieved; proceed with caution and full disclosure.'; }
+  else { assessment='Transfer Not Advised'; note='Critical yield exceeds typical long-term return assumptions — replicating the DB benefits in a DC pot is unlikely without taking excessive investment risk.'; }
+
+  document.getElementById('penYield').textContent = fmtPct(yieldPct);
+  document.getElementById('penYears').textContent = yearsToNRA;
+  document.getElementById('penAssess').textContent = assessment;
+  document.getElementById('penNote').textContent = note + ' (Indicative model only — not regulated pension transfer advice.)';
+}
+calcPension();
+
+/* ---------------- Business Exit ---------------- */
+function calcExit(){
+  const ebitda = +document.getElementById('exEbitda').value;
+  const mult = +document.getElementById('exMultiple').value;
+  const debt = +document.getElementById('exDebt').value;
+  const earnoutPct = +document.getElementById('exEarnout').value/100;
+  const badr = document.getElementById('exBADR').value;
+  const cost = +document.getElementById('exCost').value;
+
+  const ev = ebitda*mult;
+  const equityValue = ev - debt;
+  const earnout = equityValue*earnoutPct;
+  const upfront = equityValue - earnout;
+  const gain = Math.max(equityValue - cost, 0);
+  const rate = badr==='yes' ? 0.10 : 0.20;
+  const taxableAtBADR = badr==='yes' ? Math.min(gain, 1000000) : 0;
+  const taxableStd = gain - taxableAtBADR;
+  const tax = taxableAtBADR*0.10 + taxableStd*0.20;
+  const net = equityValue - tax;
+
+  document.getElementById('exEV').textContent = fmt(ev);
+  document.getElementById('exUpfront').textContent = fmt(upfront);
+  document.getElementById('exNet').textContent = fmt(net);
+  document.getElementById('exitTable').innerHTML = `
+    <tr><th>Item</th><th>Amount</th></tr>
+    <tr><td>Enterprise Value (EBITDA × multiple)</td><td>${fmt(ev)}</td></tr>
+    <tr><td>Less: Net Debt</td><td>-${fmt(debt)}</td></tr>
+    <tr><td>Equity Value</td><td>${fmt(equityValue)}</td></tr>
+    <tr><td>Earn-out Held Back (${(earnoutPct*100).toFixed(0)}%)</td><td>${fmt(earnout)}</td></tr>
+    <tr><td>Estimated CGT (${badr==='yes'?'BADR 10% + std 20%':'standard 20%'})</td><td>-${fmt(tax)}</td></tr>
+    <tr><td><strong>Net Proceeds After Tax</strong></td><td><strong>${fmt(net)}</strong></td></tr>`;
+}
+calcExit();
+
+/* ---------------- Life Insurance ---------------- */
+function calcLife(){
+  const income = +document.getElementById('liIncome').value;
+  const years = +document.getElementById('liYears').value;
+  const debt = +document.getElementById('liDebt').value;
+  const kids = +document.getElementById('liKids').value;
+  const existing = +document.getElementById('liExisting').value;
+  const assets = +document.getElementById('liAssets').value;
+
+  const incomeNeed = income*years*0.75; // discounted multiple approximation
+  const totalNeed = incomeNeed + debt + kids;
+  const totalCover = existing + assets;
+  const gap = Math.max(totalNeed-totalCover,0);
+
+  document.getElementById('liNeed').textContent = fmt(gap);
+  document.getElementById('liTable').innerHTML = `
+    <tr><th>Item</th><th>Amount</th></tr>
+    <tr><td>Income Replacement Need</td><td>${fmt(incomeNeed)}</td></tr>
+    <tr><td>Debt Coverage</td><td>${fmt(debt)}</td></tr>
+    <tr><td>Children's Future Costs</td><td>${fmt(kids)}</td></tr>
+    <tr><td><strong>Total Need</strong></td><td><strong>${fmt(totalNeed)}</strong></td></tr>
+    <tr><td>Less: Existing Cover</td><td>-${fmt(existing)}</td></tr>
+    <tr><td>Less: Liquid Assets</td><td>-${fmt(assets)}</td></tr>
+    <tr><td><strong>Additional Cover Needed</strong></td><td><strong>${fmt(gap)}</strong></td></tr>`;
+}
+calcLife();
+
+/* ---------------- Digital Assets ---------------- */
+let cryptoRows = [
+  {name:'Bitcoin Wallet', val:35000, access:'Hardware wallet seed phrase', named:'No'},
+  {name:'Crypto Exchange Account', val:8000, access:'Exchange login + 2FA', named:'No'},
+  {name:'NFT Collection', val:4500, access:'MetaMask wallet', named:'No'},
+];
+function renderCrypto(){
+  let html = '<tr><th>Asset</th><th>Value (£)</th><th>Access Method</th><th>Beneficiary Named?</th><th></th></tr>';
+  cryptoRows.forEach((c,i)=>{
+    html += `<tr>
+      <td><input value="${c.name}" onchange="cryptoRows[${i}].name=this.value" style="width:100%;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><input type="number" value="${c.val}" onchange="cryptoRows[${i}].val=+this.value;calcCrypto();" style="width:90px;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><input value="${c.access}" onchange="cryptoRows[${i}].access=this.value" style="width:100%;border:1px solid var(--border);border-radius:5px;padding:4px;background:var(--surface-2);color:var(--text);"></td>
+      <td><select onchange="cryptoRows[${i}].named=this.value;calcCrypto();">
+        <option ${c.named==='No'?'selected':''}>No</option><option ${c.named==='Yes'?'selected':''}>Yes</option></select></td>
+      <td><a href="#" onclick="cryptoRows.splice(${i},1);renderCrypto();calcCrypto();return false;">✕</a></td>
+    </tr>`;
+  });
+  document.getElementById('cryptoTable').innerHTML = html;
+}
+function addCryptoRow(){ cryptoRows.push({name:'New Asset',val:1000,access:'',named:'No'}); renderCrypto(); calcCrypto(); }
+function calcCrypto(){
+  const total = cryptoRows.reduce((s,c)=>s+c.val,0);
+  document.getElementById('cryptoTotal').textContent = fmt(total);
+  const flags = cryptoRows.filter(c=>c.named==='No');
+  document.getElementById('cryptoFlags').innerHTML = flags.length===0
+    ? '<span style="color:#1E8449;font-weight:700;">✅ All digital assets have a named beneficiary.</span>'
+    : flags.map(c=>`<div style="margin-bottom:6px;">⚠️ <strong>${c.name}</strong> (${fmt(c.val)}) has no named beneficiary — at risk of being permanently inaccessible on death.</div>`).join('');
+}
+renderCrypto(); calcCrypto();
+
+/* ---------------- Open Banking ---------------- */
+function connectBank(){
+  const btn = document.getElementById('bankConnectBtn');
+  btn.textContent = 'Connecting…';
+  btn.disabled = true;
+  setTimeout(()=>{
+    document.getElementById('bankConnectBox').classList.add('connected');
+    document.getElementById('bankDot').classList.add('on');
+    document.getElementById('bankStatusText').textContent = 'Connected — last synced just now';
+    btn.textContent = 'Reconnect';
+    btn.disabled = false;
+    const accounts = [
+      ['Current Account','Barclays', 4280],
+      ['Savings Account','Marcus by Goldman Sachs', 22500],
+      ['ISA','Vanguard', 64200],
+      ['Pension','Aviva Workplace Pension', 178900],
+      ['Mortgage','Nationwide', -158000],
+    ];
+    let html = '<tr><th>Account</th><th>Provider</th><th>Balance (£)</th></tr>';
+    let total=0;
+    accounts.forEach(a=>{ html+=`<tr><td>${a[0]}</td><td>${a[1]}</td><td>${fmt(a[2])}</td></tr>`; total+=a[2]; });
+    document.getElementById('bankTable').innerHTML = html;
+    document.getElementById('bankTotal').textContent = fmt(total);
+    document.getElementById('bankAccountsCard').style.display = 'block';
+    toast('Bank accounts connected and synced.', 'success');
+  }, 1100);
+}
+
+/* ---------------- Audit Trail ---------------- */
+let auditEntries = [
+  {t:'14 Jun 2026, 10:32', who:'A. Patel (Adviser)', what:'Updated monthly contribution from £700 to £800'},
+  {t:'14 Jun 2026, 10:35', who:'A. Patel (Adviser)', what:'Generated annual review summary — sent to client for e-signature'},
+  {t:'02 Mar 2026, 15:10', who:'J. Henderson (Client)', what:'Viewed plan via client portal'},
+  {t:'18 Jan 2026, 09:02', who:'A. Patel (Adviser)', what:'Created initial retirement plan'},
+];
+function renderAudit(){
+  document.getElementById('auditLog').innerHTML = auditEntries.map(e=>
+    `<div class="audit-row"><div class="t">${e.t}</div><div><span class="who">${e.who}</span><br>${e.what}</div></div>`).join('');
+}
+function addAuditEntry(){
+  const now = new Date();
+  auditEntries.unshift({t: now.toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    who:'A. Patel (Adviser)', what:'Edited cashflow assumptions — growth rate changed to 5.2%'});
+  renderAudit();
+  toast('New plan edit added to audit trail.', 'info');
+}
+renderAudit();
+
+function generateSuitabilityReport(){
+  toast('Suitability report generated — ready for client file (PDF citing every audit-trail entry above).', 'success');
+}
+
+/* ================= UI ENHANCEMENTS: theme, sidebar, command palette, toasts ================= */
+const SUN_ICON = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg>';
+const MOON_ICON = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>';
+
+function applyThemeIcon(){
+  const dark = document.documentElement.getAttribute('data-theme')==='dark';
+  document.getElementById('themeToggle').innerHTML = dark ? SUN_ICON : MOON_ICON;
+}
+function toggleTheme(){
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  applyThemeIcon();
+  if(window.eduChartObj) calcEducation();
+  try{ localStorage.setItem('wc-theme', next); }catch(e){}
+}
+(function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem('wc-theme'); }catch(e){}
+  if(saved){ document.documentElement.setAttribute('data-theme', saved); }
+  applyThemeIcon();
+})();
+
+function toggleSidebar(){
+  const sb = document.getElementById('sidebar');
+  if(window.innerWidth<=900){
+    sb.classList.toggle('mobile-open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  } else {
+    sb.classList.toggle('collapsed');
+  }
+}
+
+/* Toasts */
+function toast(msg, type){
+  const c = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type||'info');
+  const icon = type==='success'
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  el.innerHTML = '<span class="ic">'+icon+'</span><span>'+msg+'</span>';
+  c.appendChild(el);
+  setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(), 260); }, 3400);
+}
+
+/* Command palette */
+const CMD_ITEMS = [
+  {id:'ai', label:'AI Insights', grp:'AI & Insights'},
+  {id:'education', label:'Education Funding', grp:'New Modules'},
+  {id:'debt', label:'Debt Payoff Optimizer', grp:'New Modules'},
+  {id:'pension', label:'Pension Transfer (DB→DC)', grp:'New Modules'},
+  {id:'exit', label:'Business Exit Planner', grp:'New Modules'},
+  {id:'life', label:'Life Insurance Needs', grp:'New Modules'},
+  {id:'crypto', label:'Digital Asset Estate', grp:'New Modules'},
+  {id:'banking', label:'Open Banking Connect', grp:'Live Data'},
+  {id:'audit', label:'Audit Trail', grp:'Compliance'},
+  {id:'clientportal', label:'Client Portal Preview', grp:'Client View'},
+];
+let cmdSel = 0, cmdFiltered = CMD_ITEMS.slice();
+function renderCmdList(){
+  const list = document.getElementById('cmdList');
+  if(cmdFiltered.length===0){ list.innerHTML = '<div class="cmd-empty">No matching views.</div>'; return; }
+  list.innerHTML = cmdFiltered.map((it,i)=>
+    `<div class="cmd-item ${i===cmdSel?'sel':''}" onmouseenter="cmdSel=${i};renderCmdList();" onclick="goCmd(${i})">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+      <span>${it.label}</span><span class="grp">${it.grp}</span>
+    </div>`).join('');
+}
+function filterCmd(){
+  const q = document.getElementById('cmdInput').value.toLowerCase();
+  cmdFiltered = CMD_ITEMS.filter(it=>it.label.toLowerCase().includes(q));
+  cmdSel = 0;
+  renderCmdList();
+}
+function goCmd(i){
+  const it = cmdFiltered[i];
+  if(!it) return;
+  closeCmdPalette();
+  if(it.id==='clientportal'){ setMode('client'); }
+  else { setMode('adviser'); showView(it.id); }
+}
+function openCmdPalette(){
+  document.getElementById('cmdPalette').classList.add('show');
+  document.getElementById('cmdInput').value = '';
+  cmdFiltered = CMD_ITEMS.slice(); cmdSel = 0;
+  renderCmdList();
+  setTimeout(()=>document.getElementById('cmdInput').focus(), 30);
+}
+function closeCmdPalette(){ document.getElementById('cmdPalette').classList.remove('show'); }
+function cmdKeydown(e){
+  if(e.key==='Escape'){ closeCmdPalette(); }
+  else if(e.key==='ArrowDown'){ e.preventDefault(); cmdSel = Math.min(cmdSel+1, cmdFiltered.length-1); renderCmdList(); scrollCmdSel(); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); cmdSel = Math.max(cmdSel-1, 0); renderCmdList(); scrollCmdSel(); }
+  else if(e.key==='Enter'){ e.preventDefault(); goCmd(cmdSel); }
+}
+function scrollCmdSel(){
+  const el = document.querySelectorAll('.cmd-item')[cmdSel];
+  if(el) el.scrollIntoView({block:'nearest'});
+}
+document.addEventListener('keydown', function(e){
+  const meta = e.ctrlKey || e.metaKey;
+  if(meta && e.key.toLowerCase()==='k'){ e.preventDefault(); openCmdPalette(); }
+  else if(e.key==='Escape'){ closeCmdPalette(); }
+});
+</script>
+</body>
+</html>
