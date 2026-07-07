@@ -1,0 +1,15 @@
+# YouTube chapter markers (paste in description)
+
+0:00 hook
+0:05 chapter-1
+1:01 chapter-2
+1:23 bridge-ch3
+1:28 chapter-3
+2:22 bridge-ch4
+2:27 chapter-4
+3:29 chapter-5
+4:07 chapter-6
+4:58 myth-emphasis
+5:03 chapter-7
+5:35 chapter-8
+6:01 close

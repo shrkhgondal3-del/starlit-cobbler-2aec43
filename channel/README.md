@@ -14,7 +14,7 @@ A complete launch-and-growth system for a YouTube channel targeting **foreign in
 | **Primary Audience** | UK/EU/US/GCC expats, diaspora, remote founders, family offices |
 | **Upload Cadence** | 2 long-form videos/week + 3 Shorts/week |
 | **Language** | English (Arabic subtitles via YouTube auto-translate) |
-| **Production** | AI-only: HeyGen avatar + Higgsfield B-roll + ElevenLabs voice |
+| **Production** | Agent-automated: HeyGen + Higgsfield + ElevenLabs + FFmpeg assembly |
 | **Host** | Charlotte Hayes — glamorous British presenter (modest, culturally respectful) |
 
 ## Repository Structure
@@ -33,10 +33,13 @@ channel/
 │   ├── scripts/                      ← Source scripts
 │   └── ai-prompts/                   ← B-roll, thumbnail, script AI prompts
 ├── automation/
-│   ├── prepare_video.py              ← Script → voiceover + shot list + brief
-│   └── output/                       ← Generated production assets per video
+│   ├── run_pipeline.py             ← Orchestrator
+│   ├── assemble_video.py           ← FFmpeg assembly (no CapCut)
+│   ├── elevenlabs_generate.py      ← Voice API
+│   └── projects/                   ← Per-video production folders
 ├── operations/
-│   ├── AI-PRODUCTION-PLAYBOOK.md     ← ★ START HERE for AI pipeline
+│   ├── ZERO-MANUAL-ASSEMBLY.md     ← ★ What you do vs what agent does
+│   ├── AI-PRODUCTION-PLAYBOOK.md
 │   ├── LAUNCH-CHECKLIST.md
 │   ├── SEO-PLAYBOOK.md
 │   └── WEEKLY-WORKFLOW.md            ← AI-only weekly cycle
@@ -51,24 +54,20 @@ channel/
    ```bash
    python3 channel/automation/prepare_video.py channel/content/scripts/01-foreigners-buy-property-ksa.md
    ```
-3. **Day 2** — Paste `output/.../voiceover_chapters/*.txt` into **ElevenLabs** → export MP3s
-4. **Day 2** — Generate B-roll from `broll_shotlist.json` prompts in **Runway** + download **Pexels** stock
-5. **Day 3** — Assemble in **CapCut**, auto-caption, AI thumbnails in **Ideogram + Canva**, publish + 3 Shorts via **Opus Clip**
+3. **Day 2** — Agent generates voiceovers (ElevenLabs API) + B-roll (Higgsfield MCP) + avatar (HeyGen)
+4. **Day 3** — Agent runs `assemble_video.py` → `final.mp4` ready for your YouTube upload
 
-**Full guide:** `operations/AI-PRODUCTION-PLAYBOOK.md`
+**Full guide:** `operations/ZERO-MANUAL-ASSEMBLY.md`
 
-## AI Tool Stack (Monthly ~$109)
+## AI Tool Stack (~$95/mo — no CapCut, no Canva)
 
-| Tool | Purpose |
-|------|---------|
-| ElevenLabs | AI voiceover (locked voice profile) |
-| CapCut Pro | Edit, captions, assembly |
-| Runway | AI B-roll generation |
-| Canva Pro | Motion graphics + thumbnail text |
-| Ideogram | Thumbnail base images |
-| Opus Clip | Auto-generate Shorts from long-form |
-
-Free alternative: CapCut free + Pexels stock + YouTube auto-translate.
+| Tool | Purpose | Who operates |
+|------|---------|--------------|
+| ElevenLabs Creator | Voice clone + API | Agent |
+| HeyGen Creator | Charlotte avatar | Agent (with API) |
+| Higgsfield Plus | B-roll + MCP | Agent |
+| FFmpeg | Video assembly | Agent (built-in) |
+| YouTube | Publish | You (5 min upload) |
 
 ## Success Metrics (90-Day Targets)
 
@@ -83,15 +82,14 @@ Free alternative: CapCut free + Pexels stock + YouTube auto-translate.
 
 ## What Runs on AI vs. What You Approve
 
-| Fully AI-automated | You approve once |
-|--------------------|------------------|
-| Script → voiceover conversion (`prepare_video.py`) | AI tool subscriptions / API keys |
-| ElevenLabs narration | YouTube channel ownership |
-| B-roll generation (Runway + stock) | Legal review of regulation claims |
-| CapCut assembly + captions | Upload & schedule in YouTube Studio |
-| Thumbnails (Ideogram + Canva) | Enable synthetic content disclosure |
-| Shorts extraction (Opus Clip) | Email/CRM on hub page |
-| SEO titles, descriptions, tags | Domain for hub page |
+| Fully automated by agent | You do once |
+|--------------------------|-------------|
+| Scripts, SEO, shot lists | Sign up + pay for tools |
+| ElevenLabs voiceover (API) | `ELEVENLABS_API_KEY` in Cursor |
+| Higgsfield B-roll (MCP) | Connect `https://mcp.higgsfield.ai/mcp` |
+| HeyGen avatar clips | Train Charlotte once in HeyGen |
+| FFmpeg assembly → `final.mp4` | YouTube upload (~5 min) |
+| Subtitles + chapters file | Approve video before publish |
 
 ## AI Disclosure (Required on Every Video)
 
