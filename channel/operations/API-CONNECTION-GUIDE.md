@@ -2,6 +2,8 @@
 
 One-time setup so the agent handles ElevenLabs, HeyGen, and Higgsfield **without you using their websites per video**.
 
+> **Cloud Agent users:** If MCP Connect keeps failing, use **[SIMPLE-API-SETUP.md](SIMPLE-API-SETUP.md)** instead — paste API keys into Cloud Agent Secrets. No OAuth.
+
 ---
 
 ## Quick shopping list
