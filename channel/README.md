@@ -57,7 +57,9 @@ channel/
 3. **Day 2** — Agent generates voiceovers (ElevenLabs API) + B-roll (Higgsfield MCP) + avatar (HeyGen)
 4. **Day 3** — Agent runs `assemble_video.py` → `final.mp4` ready for your YouTube upload
 
-**Full guide:** `operations/ZERO-MANUAL-ASSEMBLY.md`
+**Full guides:**
+- `operations/API-CONNECTION-GUIDE.md` — **signup links + connect APIs to agent**
+- `operations/ZERO-MANUAL-ASSEMBLY.md` — what you do vs what agent does
 
 ## AI Tool Stack (~$95/mo — no CapCut, no Canva)
 
