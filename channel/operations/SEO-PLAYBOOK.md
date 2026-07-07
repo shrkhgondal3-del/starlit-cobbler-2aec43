@@ -55,6 +55,8 @@ In this video, Saudi Gateway covers:
 • [Title]: [URL]
 • [Title]: [URL]
 
+🤖 AI DISCLOSURE: This video uses AI-assisted production (voiceover and visuals). Content is researched from official Saudi government sources.
+
 ⚠️ DISCLAIMER: Educational content only. Not legal, tax, or investment advice. Verify all information with licensed professionals in Saudi Arabia. Regulations current as of [MONTH YEAR].
 
 #SaudiArabia #SaudiProperty #SaudiBusiness #Vision2030 #[video-specific]

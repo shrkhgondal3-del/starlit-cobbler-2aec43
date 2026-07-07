@@ -1,5 +1,7 @@
 # Saudi Gateway — YouTube Channel Operations Hub
 
+**100% AI-produced channel.** No camera, no human presenter. Scripts → AI voice → AI/stock visuals → automated edit → publish.
+
 A complete launch-and-growth system for a YouTube channel targeting **foreign investors, expats, and entrepreneurs** interested in **KSA real estate** and **business setup in Saudi Arabia**.
 
 ## Channel Identity
@@ -11,37 +13,59 @@ A complete launch-and-growth system for a YouTube channel targeting **foreign in
 | **Niche** | KSA property for foreigners + business formation & licensing |
 | **Primary Audience** | UK/EU/US/GCC expats, diaspora, remote founders, family offices |
 | **Upload Cadence** | 2 long-form videos/week + 3 Shorts/week |
-| **Language** | English (Arabic subtitles on all long-form) |
+| **Language** | English (Arabic subtitles via YouTube auto-translate) |
+| **Production** | AI-only (ElevenLabs + Runway/CapCut + Opus Clip) |
 
 ## Repository Structure
 
 ```
 channel/
-├── README.md                    ← You are here
+├── README.md                         ← You are here
 ├── strategy/
-│   └── CHANNEL-STRATEGY.md      ← Positioning, monetization, growth model
+│   └── CHANNEL-STRATEGY.md
 ├── brand/
-│   └── BRAND-GUIDE.md           ← Visual identity, tone, thumbnails
+│   └── BRAND-GUIDE.md                ← AI visual identity + thumbnails
 ├── content/
-│   ├── CONTENT-CALENDAR.md      ← 90-day publishing schedule
-│   └── scripts/                 ← Production-ready video scripts
+│   ├── CONTENT-CALENDAR.md
+│   ├── scripts/                      ← Source scripts
+│   └── ai-prompts/                   ← B-roll, thumbnail, script AI prompts
+├── automation/
+│   ├── prepare_video.py              ← Script → voiceover + shot list + brief
+│   └── output/                       ← Generated production assets per video
 ├── operations/
-│   ├── LAUNCH-CHECKLIST.md      ← Day 0 → Day 30 launch steps
-│   ├── SEO-PLAYBOOK.md          ← Titles, tags, descriptions, CTR
-│   └── WEEKLY-WORKFLOW.md       ← Repeatable production pipeline
+│   ├── AI-PRODUCTION-PLAYBOOK.md     ← ★ START HERE for AI pipeline
+│   ├── LAUNCH-CHECKLIST.md
+│   ├── SEO-PLAYBOOK.md
+│   └── WEEKLY-WORKFLOW.md            ← AI-only weekly cycle
 └── hub/
-    └── index.html               ← Public channel hub / lead capture page
+    └── index.html
 ```
 
-## Quick Start (First 7 Days)
+## Quick Start — AI Pipeline (First 3 Days)
 
-1. **Day 1** — Create Google/YouTube account, claim handle `@SaudiGateway` (or nearest available)
-2. **Day 1** — Apply brand assets from `brand/BRAND-GUIDE.md` (banner, profile, watermark)
-3. **Day 2** — Record Script 01: *"Can Foreigners Buy Property in Saudi Arabia? (2026 Guide)"*
-4. **Day 3** — Edit, add Arabic subtitles, design thumbnail per brand guide
-5. **Day 4** — Publish Video 01 + 2 Shorts cut from the long-form
-6. **Day 5** — Record Script 02: *"How to Start a Business in Saudi Arabia as a Foreigner"*
-7. **Day 6–7** — Publish Video 02, set up channel hub page, link in description
+1. **Day 1** — Create YouTube channel `@SaudiGateway` + subscribe to AI tools (~$109/mo — see playbook)
+2. **Day 1** — Run automation on Script 01:
+   ```bash
+   python3 channel/automation/prepare_video.py channel/content/scripts/01-foreigners-buy-property-ksa.md
+   ```
+3. **Day 2** — Paste `output/.../voiceover_chapters/*.txt` into **ElevenLabs** → export MP3s
+4. **Day 2** — Generate B-roll from `broll_shotlist.json` prompts in **Runway** + download **Pexels** stock
+5. **Day 3** — Assemble in **CapCut**, auto-caption, AI thumbnails in **Ideogram + Canva**, publish + 3 Shorts via **Opus Clip**
+
+**Full guide:** `operations/AI-PRODUCTION-PLAYBOOK.md`
+
+## AI Tool Stack (Monthly ~$109)
+
+| Tool | Purpose |
+|------|---------|
+| ElevenLabs | AI voiceover (locked voice profile) |
+| CapCut Pro | Edit, captions, assembly |
+| Runway | AI B-roll generation |
+| Canva Pro | Motion graphics + thumbnail text |
+| Ideogram | Thumbnail base images |
+| Opus Clip | Auto-generate Shorts from long-form |
+
+Free alternative: CapCut free + Pexels stock + YouTube auto-translate.
 
 ## Success Metrics (90-Day Targets)
 
@@ -52,22 +76,26 @@ channel/
 | Avg. watch time (long-form) | 8+ minutes |
 | CTR (impressions → click) | 6%+ |
 | Inbound leads (consultation form) | 50+ |
+| Videos published (AI) | 24 long-form + 36 Shorts |
 
-## What I Manage vs. What You Approve
+## What Runs on AI vs. What You Approve
 
-| I prepare | You execute / approve |
-|-----------|----------------------|
-| Scripts, titles, descriptions, tags | On-camera delivery (or hire presenter) |
-| Content calendar & topic research | Legal review of claims before publish |
-| Thumbnail briefs & brand specs | Final thumbnail selection |
-| Shorts cut lists & hook lines | Upload & schedule in YouTube Studio |
-| SEO keyword maps | Google account & channel ownership |
-| Lead magnet copy & hub page | CRM / consultation booking setup |
+| Fully AI-automated | You approve once |
+|--------------------|------------------|
+| Script → voiceover conversion (`prepare_video.py`) | AI tool subscriptions / API keys |
+| ElevenLabs narration | YouTube channel ownership |
+| B-roll generation (Runway + stock) | Legal review of regulation claims |
+| CapCut assembly + captions | Upload & schedule in YouTube Studio |
+| Thumbnails (Ideogram + Canva) | Enable synthetic content disclosure |
+| Shorts extraction (Opus Clip) | Email/CRM on hub page |
+| SEO titles, descriptions, tags | Domain for hub page |
 
-## Legal Disclaimer (include on every video)
+## AI Disclosure (Required on Every Video)
 
-> This content is for educational purposes only and does not constitute legal, tax, or investment advice. Saudi regulations change frequently. Consult licensed advisors in KSA before making decisions.
+> This video was created with AI-assisted production (voiceover and visuals). Content is researched from official Saudi government sources. Educational purposes only — not legal or investment advice.
+
+Enable YouTube **altered/synthetic content** disclosure on upload.
 
 ---
 
-**Next step:** Open `operations/LAUNCH-CHECKLIST.md` and begin Day 1 tasks.
+**Next step:** Open `operations/AI-PRODUCTION-PLAYBOOK.md` and produce Video 01.

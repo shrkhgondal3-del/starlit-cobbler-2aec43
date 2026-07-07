@@ -41,15 +41,19 @@ Icon: Minimal arched gateway silhouette (suggestive of historic Diriyah architec
 
 **Do not:** Use the Saudi flag as a logo element. Use green/gold palette as cultural reference only.
 
-## Thumbnail System
+## Thumbnail System (AI-Generated)
 
-Consistent thumbnails = higher CTR. Follow this template for every video.
+All thumbnails are **AI-generated** — no photographer, no presenter headshots.
+
+**Pipeline:** Ideogram (base image) → Canva (text overlay) → export 1280×720
+
+Full prompts: `content/ai-prompts/THUMBNAIL-PROMPTS.md`
 
 ### Layout (1280×720)
 
 ```
 ┌─────────────────────────────────────────┐
-│  [FACE or KEY OBJECT — left 40%]        │
+│  [AI SKYLINE / MAP / DOCUMENT — left]   │
 │                                         │
 │  BIG TITLE LINE 1 (3-4 words)     [BADGE]│
 │  subtitle line (gold, smaller)          │
@@ -60,12 +64,12 @@ Consistent thumbnails = higher CTR. Follow this template for every video.
 ```
 
 ### Rules
-1. **Max 6 words** in main title on thumbnail
-2. **One face** (presenter or stock professional) — faces increase CTR 20%+
+1. **Max 6 words** in main title — add text in Canva, never in Ideogram
+2. **No AI faces** — use skylines, maps, documents, architecture (avoids uncanny valley + trust issues)
 3. **Badge** top-right: "2026" / "FOREIGNERS" / "STEP BY STEP" / "UPDATED"
 4. **High contrast** — navy background, white text, gold accent
-5. **No clutter** — one idea per thumbnail
-6. A/B test: publish with 3 thumbnail variants in YouTube Test & Compare when available
+5. **3 variants** per video for YouTube Test & Compare
+6. Negative prompt in Ideogram: `text, words, face, person, watermark`
 
 ### Thumbnail Title Formulas
 
@@ -77,31 +81,34 @@ Consistent thumbnails = higher CTR. Follow this template for every video.
 | List | `[N] Things You Must Know` | `7 Business Setup Mistakes` |
 | Update | `[Topic] — 2026 Changes` | `RHQ Rules — 2026 Changes` |
 
-## Video Production Standards
+## Video Production Standards (AI-Only)
+
+**Format:** AI Documentary — ElevenLabs voiceover + Runway/Pexels B-roll + Canva motion graphics
+
+Full pipeline: `operations/AI-PRODUCTION-PLAYBOOK.md`
 
 ### Intro (8 seconds max)
-- 2-second logo sting (gateway arch animation)
-- Voice: *"Saudi Gateway — your path to property and business in Saudi Arabia."*
-- No long animated intros — hurts retention
+- 2-second logo sting (Canva animation template)
+- AI voice (ElevenLabs): *"Welcome to Saudi Gateway — your path to property and business in Saudi Arabia. This video uses AI-assisted production. Educational purposes only."*
+- Disclaimer card on screen (3 sec)
 
 ### On-screen elements
-- **Lower third:** Name + title, green bar
-- **Source citations:** Show official document/website URL on screen when citing regulations
+- **Lower third:** Chapter title, green bar (Canva template)
+- **Source citations:** REGA/MISA/ZATCA URL on screen when citing regulations
 - **Chapter markers:** Every 2–3 minutes
-- **End screen:** Last 20 seconds — subscribe button + next video + checklist link
+- **End screen:** Last 20 seconds — subscribe + next video + checklist link
+- **Cut rhythm:** New visual every 4–6 seconds (critical for AI retention)
 
 ### Audio
-- Mic: Shure MV7 or Rode PodMic minimum
-- Room: treated or closet with blankets
-- Music: subtle, royalty-free (Epidemic Sound / Artlist) — duck under voice
+- **Voice:** ElevenLabs — George or Daniel, stability 0.65, speed 0.95
+- **Music:** CapCut royalty-free or Epidemic Sound — **-20dB under voice**
+- **No mic needed**
 
-### B-roll shot list (reuse library)
-- Riyadh skyline (Kingdom Centre, KAFD)
-- Jeddah Corniche
-- NEOM / The Line renders (label as "artist impression")
-- Government building exteriors (MISA, REGA — stock or licensed)
-- Document close-ups (blur sensitive data)
-- Aerial Saudi desert / Red Sea
+### B-roll sources (priority order)
+1. Pexels/Storyblocks real Saudi footage
+2. Runway Gen-3 AI clips (`content/ai-prompts/BROLL-PROMPTS.md`)
+3. Canva motion graphics for charts and flowcharts
+- NEOM/giga-projects: always label **"Artist impression"** on screen
 
 ## Social & Channel Assets
 
@@ -152,15 +159,28 @@ Instagram: [handle]
 - **Captions:** Always on, large font, center-bottom
 - **Reuse:** Cut from long-form — do not create unique Shorts-only content in Phase 1 (efficiency)
 
-## Presenter Guidelines
+## AI Voice Profile (Lock for All Videos)
 
-If you are on camera:
-- Business casual (no suit required; blazer optional)
-- Neutral background or bookshelf with subtle Saudi/map element
-- Look at lens, not screen
-- Speak at 140–160 words/minute (scripts are calibrated to this)
-- Energy: confident professor, not sales rep
+| Setting | Value |
+|---------|-------|
+| Tool | ElevenLabs Multilingual v2 |
+| Voice | George (British) or Daniel — authoritative, calm |
+| Stability | 0.65 |
+| Similarity | 0.80 |
+| Style | 0.15 |
+| Speed | 0.95 |
+| Pace | 140–160 words/minute |
+
+Do not change voice between videos — consistency builds brand recognition.
+
+## AI Disclosure (Brand Requirement)
+
+Every video must include:
+1. **Spoken** in intro: "AI-assisted production"
+2. **On-screen** disclaimer card (first 5 seconds)
+3. **Written** in YouTube description (see SEO playbook boilerplate)
+4. **YouTube upload:** altered/synthetic content disclosure enabled
 
 ---
 
-*Brand assets folder (to create locally): `/assets/logo/`, `/assets/thumbnails/templates.psd`*
+*AI brand assets: generate in Ideogram/Canva — see `content/ai-prompts/`*

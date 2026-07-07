@@ -113,7 +113,8 @@ Monetize (AdSense + affiliates + sponsored segments + own courses)
 |------|------------|
 | Regulatory info goes stale | Date-stamp every video; pin "last verified" in description; annual update videos |
 | Legal liability | Disclaimer on every video; lawyer review for business/property claims |
-| Low production quality | Invest in mic + lighting before camera; use teleprompter for scripts |
+| Low production quality | AI documentary format (ElevenLabs + Runway + CapCut); cut every 4–6 sec |
+| AI trust concerns | Disclose on every video; cite official sources on screen; no fake AI faces |
 | Audience distrust of "influencer" content | Show primary sources on screen; interview licensed professionals |
 | Algorithm cold start | Front-load 10 SEO-targeted videos in first 30 days; aggressive Shorts strategy |
 

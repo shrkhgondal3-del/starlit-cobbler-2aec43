@@ -1,149 +1,131 @@
-# Saudi Gateway — Launch Checklist
+# Saudi Gateway — AI-Only Launch Checklist
 
-Complete every item in order. Check off as you go.
-
----
-
-## Phase 0: Prerequisites (Before Day 1)
-
-- [ ] **Google account** dedicated to the channel (not personal Gmail if avoidable)
-- [ ] **Brand name confirmed:** Saudi Gateway
-- [ ] **Handle research:** Search YouTube for `@SaudiGateway`, `@SaudiGatewayHQ`, `@GatewayToSaudi` — claim best available
-- [ ] **Legal advisor identified** in KSA (property + corporate) for script review
-- [ ] **Equipment minimum:** USB mic (Shure MV7/Rode PodMic), ring light or window light, 1080p camera (phone OK to start)
-- [ ] **Software:** DaVinci Resolve (free) or CapCut, Canva Pro (thumbnails), Descript or CapCut (captions)
+Complete every item in order. **No camera or microphone needed.**
 
 ---
 
-## Day 1: Channel Creation
+## Phase 0: AI Tool Setup (Before Day 1)
 
-- [ ] Go to [youtube.com](https://youtube.com) → Create channel → "Use a custom name" → **Saudi Gateway**
-- [ ] Upload **profile picture** (800×800) — gateway icon on navy background
-- [ ] Upload **banner** (2560×1440) — see `brand/BRAND-GUIDE.md` safe zone
-- [ ] Set **channel description:**
+- [ ] **Google account** for YouTube channel
+- [ ] **ElevenLabs** Creator plan — create voice profile (George/Daniel, stability 0.65)
+- [ ] **CapCut** Pro (or free tier to start)
+- [ ] **Canva** Pro — create brand kit (colors: `#006C35`, `#C5A572`, `#0D1B2A`)
+- [ ] **Runway** Standard — for AI B-roll
+- [ ] **Ideogram** — for thumbnail base images
+- [ ] **Opus Clip** — for Shorts automation
+- [ ] **Claude or ChatGPT** — for script generation and comment replies
+- [ ] Clone repo and verify: `python3 channel/automation/prepare_video.py --help`
+
+---
+
+## Day 1: Channel + AI Brand Assets
+
+- [ ] Create YouTube channel **Saudi Gateway** → handle `@SaudiGateway`
+- [ ] Generate **profile picture** in Ideogram:
+  ```
+  Minimal arched gateway logo icon, Saudi inspired architecture, gold on deep navy circle, clean modern, no text, app icon style
+  ```
+- [ ] Generate **banner** in Canva (2560×1440) — use brand colors, add text in Canva
+- [ ] Set channel description (include AI disclosure):
 
 ```
-Saudi Gateway helps foreigners buy property and start businesses in Saudi Arabia. Clear, current guides on MISA licenses, Premium Residency, REGA property rules, RHQ program, and Vision 2030 opportunities.
+Saudi Gateway helps foreigners buy property and start businesses in Saudi Arabia.
 
-New videos every Tuesday & Friday.
+AI-assisted production | Researched from official sources (MISA, REGA, ZATCA)
+New videos every Tuesday & Friday
 
 ⚠️ Educational content only — not legal or investment advice.
-
 📋 Free checklists: [HUB URL]
 ```
 
-- [ ] Add **channel links:** Website (hub), email, LinkedIn, Instagram
-- [ ] Set **channel keywords** (YouTube Studio → Settings → Channel → Basic info):
+- [ ] Create 4 playlists (Property, Business, Regulations, Market Updates)
+- [ ] Enable YouTube upload defaults: Education category, auto-chapters ON
 
+---
+
+## Day 2: Produce Video 01 with AI
+
+- [ ] Run automation:
+  ```bash
+  python3 channel/automation/prepare_video.py channel/content/scripts/01-foreigners-buy-property-ksa.md
+  ```
+- [ ] Open `channel/automation/output/01-foreigners-buy-property-ksa/production_brief.md`
+- [ ] **ElevenLabs:** paste each `voiceover_chapters/*.txt` → export MP3s
+- [ ] **Runway:** generate clips from `broll_shotlist.json` prompts
+- [ ] **Pexels:** download stock for any weak AI clips (search terms in shotlist)
+- [ ] **Canva:** create disclaimer card + 4-pathways flowchart + source cards
+- [ ] Lawyer review of `voiceover.txt` (optional but recommended for regulation claims)
+
+---
+
+## Day 3: Assemble & Thumbnail Video 01
+
+- [ ] **CapCut assembly** per `production_brief.md`:
+  - Import MP3s sequentially
+  - Lay B-roll (cut every 4–6 sec)
+  - Overlay graphics at key moments
+  - Background music at -20dB
+  - Auto-caption → fix REGA, MISA, ZATCA spelling
+- [ ] Export 1080p H.264
+- [ ] **Ideogram + Canva:** 3 thumbnail variants (see `ai-prompts/THUMBNAIL-PROMPTS.md` Video 01)
+- [ ] Copy SEO title, description, tags from `operations/SEO-PLAYBOOK.md`
+
+---
+
+## Day 4: Publish Video 01 + Shorts
+
+- [ ] Upload to YouTube Studio
+- [ ] **Enable altered/synthetic content disclosure**
+- [ ] Add chapters from `production_brief.md` timestamps
+- [ ] Upload 3 thumbnails → Test & Compare
+- [ ] Auto-translate captions to Arabic
+- [ ] Add end screen + cards
+- [ ] Pin comment with checklist link
+- [ ] **Opus Clip:** upload long-form → generate 3 Shorts → publish 2, schedule 1
+
+---
+
+## Day 5: Hub Page + Video 02 AI Production
+
+- [ ] Deploy `channel/hub/index.html` (GitHub Pages / Netlify)
+- [ ] Connect email form (Formspree/Mailchimp)
+- [ ] Run `prepare_video.py` on Script 02
+- [ ] Batch ElevenLabs + Runway for Video 02
+
+---
+
+## Day 6–7: Publish Video 02
+
+- [ ] CapCut assemble Video 02
+- [ ] AI thumbnails × 3
+- [ ] Publish + cross-link with Video 01
+- [ ] Opus Clip → 3 Shorts from Video 02
+
+---
+
+## Week 2+: Automated Cadence
+
+Follow `operations/WEEKLY-WORKFLOW.md` — 2 AI long-form + 3 AI Shorts per week.
+
+### Batch tip (produce 2 weeks ahead)
+```bash
+python3 channel/automation/prepare_video.py channel/content/scripts/0*.md
+# Then batch all ElevenLabs → batch all Runway → assemble 4 videos
 ```
-saudi arabia property foreigners, business setup saudi arabia, MISA license, buy property saudi arabia, saudi investment, premium residency saudi, regional headquarters saudi, vision 2030
-```
-
-- [ ] Enable **important settings:**
-  - Category: Education
-  - Country: Saudi Arabia (or your production country)
-  - Auto-chapters: ON
-  - Allow embedding: ON
-  - Show how many viewers like video: ON
-- [ ] Upload **watermark** (subscribe prompt, last 15 sec)
-- [ ] Create **4 playlists** (empty for now):
-  1. Property Guide for Foreigners
-  2. Business Setup Step by Step
-  3. Regulations Explained
-  4. Market Updates & Q&A
 
 ---
 
-## Day 2–3: First Video Production
-
-- [ ] Read script: `content/scripts/01-foreigners-buy-property-ksa.md`
-- [ ] **Lawyer review** of script (mandatory)
-- [ ] Verify all **official URLs** on screen (REGA, Premium Residency, MISA) — regulations change
-- [ ] Record A-roll (presenter on camera)
-- [ ] Gather B-roll (stock: Storyblocks, Envato, or royalty-free)
-- [ ] Edit to 14–16 min target
-- [ ] Add **chapter markers** (match script chapters)
-- [ ] Generate **English captions** + **Arabic subtitles**
-- [ ] Design **3 thumbnail variants** per brand guide
-- [ ] Write **title, description, tags** — copy from `operations/SEO-PLAYBOOK.md` Video 01 entry
-
----
-
-## Day 4: Publish Video 01
-
-- [ ] Upload video → set to **Public**
-- [ ] Add to playlist: **Property Guide for Foreigners**
-- [ ] Set **end screen** (last 20 sec): Subscribe + Best for viewer (placeholder for Video 02)
-- [ ] Set **cards** at Ch 6 and Ch 8: link to checklist on hub page
-- [ ] Pin **comment** with checklist link and question prompt
-- [ ] Publish **2 Shorts** cut from Video 01:
-  - "Foreigners CAN'T buy in Saudi?" myth bust
-  - "4 ways foreigners can own property in KSA"
-- [ ] Share on LinkedIn + relevant Reddit (r/saudiarabia, r/expats — follow sub rules, no spam)
-
----
-
-## Day 5: Hub Page & Lead Magnet
-
-- [ ] Deploy channel hub page (`hub/index.html`) to hosting (GitHub Pages, Netlify, or custom domain)
-- [ ] Register domain: `saudigateway.com` or `saudigateway.co` (recommended)
-- [ ] Create **PDF checklist:** "Foreign Buyer's KSA Property Checklist" (export from hub content or Canva)
-- [ ] Connect email capture (Formspree, Mailchimp, or ConvertKit)
-- [ ] Add hub URL to all video descriptions
-- [ ] Test form submission end-to-end
-
----
-
-## Day 6–7: Video 02 Production & Publish
-
-- [ ] Record Script 02: Business setup guide
-- [ ] Lawyer review
-- [ ] Publish Tuesday/Friday per calendar
-- [ ] Cross-link Video 01 ↔ Video 02 in descriptions and end screens
-- [ ] Publish 1 additional Short from Video 02
-
----
-
-## Week 2: Monetization Prep
-
-- [ ] Apply for **YouTube Partner Program** when eligible (1K subs + 4K watch hours)
-- [ ] Set up **Google AdSense** account (linked to channel)
-- [ ] Create **media kit** (subscriber count, demographics, rate card) — template at 1K subs
-- [ ] Identify **2 partner firms** (Saudi law firm, property developer) for future sponsorship — disclose all deals
-- [ ] Set up **analytics dashboard:** YouTube Studio + Google Analytics on hub page
-
----
-
-## Week 3–4: Growth Systems
-
-- [ ] Schedule next 4 videos in YouTube Studio (batch upload as unlisted → schedule)
-- [ ] Set up **content tracker** (hub page tracker tab or spreadsheet)
-- [ ] Join **3 communities** where target audience asks questions:
-  - LinkedIn groups (Saudi business, GCC investment)
-  - Expat forums
-  - Quora (answer KSA property/business questions with video links where allowed)
-- [ ] Submit channel to **Google Search Console** (hub domain)
-- [ ] Create **LinkedIn company page:** Saudi Gateway
-
----
-
-## Ongoing Weekly Checklist
-
-See `operations/WEEKLY-WORKFLOW.md` for the repeatable production pipeline.
-
----
-
-## Day 30 Success Criteria
+## Day 30 AI Success Criteria
 
 | Goal | Target |
 |------|--------|
-| Long-form videos published | 8+ |
-| Shorts published | 12+ |
+| AI long-form published | 8+ |
+| AI Shorts published | 12+ |
 | Subscribers | 500+ |
 | Total views | 15,000+ |
+| Avg. production time per video | < 4 hours |
 | Hub email signups | 25+ |
-| Avg. CTR | 4%+ (improve to 6% by Day 90) |
 
 ---
 
-*Launch checklist v1.0 — Saudi Gateway ops*
+*AI Launch Checklist v2.0*
