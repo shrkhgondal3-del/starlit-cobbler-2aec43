@@ -6,8 +6,9 @@ Avatar ID: [paste after creation]
 
 ## ElevenLabs Voice Clone
 Voice name: Charlotte Hayes - Saudi Gateway
-Base voice: Charlotte (British) or Alice (British)
-Voice ID: [paste after clone]
+Base voice: Alice (British) — ID: Xb7hH8MSUJpSbSDYk0k2
+Voice ID: Xb7hH8MSUJpSbSDYk0k2
+Status: [x] Video 01 voiceovers generated via API
 
 ## Higgsfield Soul Character
 Character name: Charlotte Hayes

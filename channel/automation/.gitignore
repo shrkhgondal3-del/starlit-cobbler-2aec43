@@ -1,3 +1,7 @@
+# Secrets — never commit
+.env
+*.env.local
+
 # Generated production assets — do not commit large media
 projects/**/voiceover/*.mp3
 projects/**/avatar/*.mp4
