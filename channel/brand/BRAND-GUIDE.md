@@ -41,21 +41,21 @@ Icon: Minimal arched gateway silhouette (suggestive of historic Diriyah architec
 
 **Do not:** Use the Saudi flag as a logo element. Use green/gold palette as cultural reference only.
 
-## Thumbnail System (AI-Generated)
+## Thumbnail System (Avatar Face — James Reid)
 
-All thumbnails are **AI-generated** — no photographer, no presenter headshots.
+Use **James Reid** on every thumbnail — same trained face builds recognition and lifts CTR.
 
-**Pipeline:** Ideogram (base image) → Canva (text overlay) → export 1280×720
+**Pipeline:** HeyGen/Soul still export → Canva text overlay → 1280×720
 
-Full prompts: `content/ai-prompts/THUMBNAIL-PROMPTS.md`
+Prompts: `content/ai-prompts/AVATAR-REFERENCE-PROMPTS.md` (Image 10) + `THUMBNAIL-PROMPTS.md`
 
 ### Layout (1280×720)
 
 ```
 ┌─────────────────────────────────────────┐
-│  [AI SKYLINE / MAP / DOCUMENT — left]   │
+│  [JAMES REID FACE — left 40%]     [BADGE]│
 │                                         │
-│  BIG TITLE LINE 1 (3-4 words)     [BADGE]│
+│  BIG TITLE LINE 1 (3-4 words)           │
 │  subtitle line (gold, smaller)          │
 │                                         │
 │  ─── green accent bar bottom ───        │
@@ -64,12 +64,11 @@ Full prompts: `content/ai-prompts/THUMBNAIL-PROMPTS.md`
 ```
 
 ### Rules
-1. **Max 6 words** in main title — add text in Canva, never in Ideogram
-2. **No AI faces** — use skylines, maps, documents, architecture (avoids uncanny valley + trust issues)
-3. **Badge** top-right: "2026" / "FOREIGNERS" / "STEP BY STEP" / "UPDATED"
-4. **High contrast** — navy background, white text, gold accent
+1. **Same face every video** — export from HeyGen avatar or Higgsfield Soul
+2. **Max 6 words** in main title — add text in Canva only
+3. **Expression:** confident/serious, direct eye contact
+4. **Badge** top-right: "2026" / "FOREIGNERS" / "STEP BY STEP"
 5. **3 variants** per video for YouTube Test & Compare
-6. Negative prompt in Ideogram: `text, words, face, person, watermark`
 
 ### Thumbnail Title Formulas
 

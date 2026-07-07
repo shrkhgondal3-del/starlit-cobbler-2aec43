@@ -14,7 +14,8 @@ A complete launch-and-growth system for a YouTube channel targeting **foreign in
 | **Primary Audience** | UK/EU/US/GCC expats, diaspora, remote founders, family offices |
 | **Upload Cadence** | 2 long-form videos/week + 3 Shorts/week |
 | **Language** | English (Arabic subtitles via YouTube auto-translate) |
-| **Production** | AI-only (ElevenLabs + Runway/CapCut + Opus Clip) |
+| **Production** | AI-only: HeyGen avatar + Higgsfield B-roll + ElevenLabs voice |
+| **Host** | James Reid (AI avatar) — see `avatar/CHARACTER-BIBLE.md` |
 
 ## Repository Structure
 
@@ -23,7 +24,9 @@ channel/
 ├── README.md                         ← You are here
 ├── strategy/
 │   └── CHANNEL-STRATEGY.md
-├── brand/
+├── avatar/
+│   ├── CHARACTER-BIBLE.md           ← James Reid host spec
+│   └── AVATAR-PRODUCTION-GUIDE.md   ← HeyGen + Soul setup
 │   └── BRAND-GUIDE.md                ← AI visual identity + thumbnails
 ├── content/
 │   ├── CONTENT-CALENDAR.md

@@ -7,14 +7,12 @@ Complete every item in order. **No camera or microphone needed.**
 ## Phase 0: AI Tool Setup (Before Day 1)
 
 - [ ] **Google account** for YouTube channel
-- [ ] **ElevenLabs** Creator plan — create voice profile (George/Daniel, stability 0.65)
-- [ ] **CapCut** Pro (or free tier to start)
-- [ ] **Canva** Pro — create brand kit (colors: `#006C35`, `#C5A572`, `#0D1B2A`)
-- [ ] **Runway** Standard — for AI B-roll
-- [ ] **Ideogram** — for thumbnail base images
-- [ ] **Opus Clip** — for Shorts automation
-- [ ] **Claude or ChatGPT** — for script generation and comment replies
-- [ ] Clone repo and verify: `python3 channel/automation/prepare_video.py --help`
+- [ ] **HeyGen** Creator plan — create James Reid avatar (see `avatar/AVATAR-PRODUCTION-GUIDE.md`)
+- [ ] **ElevenLabs** Creator — voice clone for James Reid
+- [ ] **Higgsfield** Plus + MCP connector (`https://mcp.higgsfield.ai/mcp`) — B-roll + Soul character
+- [ ] **CapCut** Pro
+- [ ] **Canva** Pro — brand kit + lower thirds
+- [ ] Generate 8 reference images using `content/ai-prompts/AVATAR-REFERENCE-PROMPTS.md`
 
 ---
 

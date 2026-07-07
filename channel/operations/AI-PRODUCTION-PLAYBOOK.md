@@ -1,54 +1,64 @@
 # Saudi Gateway — AI-Only Production Playbook
 
-**100% AI pipeline.** No camera, no presenter, no manual recording. Every video is generated from scripts using AI voice, AI visuals, and automated editing.
+**100% AI pipeline.** No real camera, no human presenter — but includes **AI avatar host James Reid** for hooks, bridges, and CTAs.
 
 ---
 
-## Video Format: "AI Documentary"
+## Video Format: Hybrid Avatar + Documentary
 
-This format outperforms cheap AI avatars for finance/property content because it feels like a premium explainer, not a synthetic talking head.
+Best format for property/finance YouTube: trusted AI host + cinematic B-roll depth.
+
+| Segment | Format | Tool |
+|---------|--------|------|
+| Hook, bridges, myth moments, close | **Avatar** (James Reid) | HeyGen |
+| Chapter body | **B-roll + graphics** | Higgsfield MCP (Kling/Veo) |
+| Voice (all segments) | Same voice clone | ElevenLabs |
+| Thumbnails | Avatar face | Higgsfield Soul or HeyGen still |
+| Shorts opening | Avatar 3–5 sec | HeyGen 9:16 |
+
+Full avatar setup: `avatar/AVATAR-PRODUCTION-GUIDE.md` and `avatar/CHARACTER-BIBLE.md`
 
 | Layer | AI Tool | Output |
 |-------|---------|--------|
-| **Script** | Claude / ChatGPT + repo scripts | Markdown → voiceover text |
-| **Voiceover** | ElevenLabs | MP3 per chapter |
-| **B-roll** | Runway Gen-3 / Kling + Pexels stock | 4K clips per scene |
+| **Avatar clips** | HeyGen (James Reid) | hook, bridges, close MP4s |
+| **Script** | Claude Fable 5 + repo scripts | Markdown with AVATAR/B-ROLL markers |
+| **Voiceover** | ElevenLabs (voice clone) | MP3 per B-roll chapter |
+| **B-roll** | Higgsfield MCP (Kling/Veo) + Pexels | 4K clips per scene |
 | **Motion graphics** | Canva / CapCut templates | Charts, flowcharts, lower-thirds |
-| **Assembly** | CapCut Desktop or InVideo AI | Final 1080p/4K video |
-| **Captions** | CapCut auto-caption or Descript | SRT (EN + AR) |
-| **Thumbnails** | Ideogram / DALL-E + Canva | 1280×720 × 3 variants |
-| **Shorts** | Opus Clip or CapCut AI clipper | 3 Shorts per long-form |
-
-### Optional: AI Avatar (Shorts only)
-Use **HeyGen** or **Synthesia** for 15-second Shorts hooks only — not for 15-minute long-form.
+| **Assembly** | CapCut | Avatar + B-roll on timeline |
+| **Captions** | CapCut auto-caption | SRT (EN + AR via YouTube) |
+| **Thumbnails** | HeyGen/Soul still + Canva text | 1280×720 × 3 variants |
+| **Shorts** | HeyGen hook + Opus Clip or Higgsfield Clipper | 3 Shorts per long-form |
 
 ---
 
 ## End-to-End Pipeline (One Video)
 
 ```
-Script (.md)
+Script (.md with AVATAR markers)
     ↓
 prepare_video.py  →  voiceover.txt + broll_shotlist.json + production_brief.md
     ↓
-ElevenLabs  →  voice/*.mp3 (one file per chapter)
+HeyGen  →  avatar clips (hook, bridges, close) — James Reid
     ↓
-Runway/Kling + Pexels  →  broll/*.mp4
+ElevenLabs  →  voice clone → B-roll chapter MP3s
     ↓
-Canva  →  graphics/*.png (flowcharts, title cards)
+Higgsfield MCP  →  broll/*.mp4 (Kling 3, Veo 3.1)
     ↓
-CapCut / InVideo  →  assemble on timeline, sync to voice
+Canva  →  graphics/*.png
     ↓
-CapCut captions  →  EN + AR subtitles
+CapCut  →  stitch avatar + B-roll on timeline
     ↓
-Ideogram + Canva  →  3 thumbnails
+CapCut captions + YouTube AR auto-translate
     ↓
-YouTube Studio  →  upload, SEO, schedule
+Soul/HeyGen still + Canva  →  3 thumbnails (with James Reid face)
     ↓
-Opus Clip  →  3 Shorts from long-form
+YouTube Studio  →  upload + synthetic content disclosure
+    ↓
+Opus Clip / Higgsfield Clipper  →  3 Shorts (avatar hook + B-roll)
 ```
 
-**Time per long-form video (AI-only):** 2–4 hours once pipeline is set up (vs. 12–16 hours manual).
+**Time per long-form video (avatar + documentary):** 3–5 hours once pipeline is set up.
 
 ---
 
@@ -255,14 +265,13 @@ Before publish:
 | Tool | Plan | Cost/month |
 |------|------|------------|
 | ElevenLabs | Creator | ~$22 |
+| **HeyGen** | **Creator** | **~$24** |
 | CapCut | Pro | ~$10 |
-| Canva | Pro | ~$13 |
-| Runway | Standard | ~$15 |
+| **Higgsfield** | **Plus** | **~$49** |
 | Opus Clip | Pro | ~$29 |
-| Ideogram | Plus | ~$20 |
-| **Total** | | **~$109/month** |
+| **Total** | | **~$134/month** |
 
-Free alternatives: CapCut free tier, Pexels stock, YouTube auto-translate, ChatGPT free for scripts.
+Free tier alternative: HeyGen free (watermarked) + Higgsfield free credits + CapCut free.
 
 ---
 
