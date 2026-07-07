@@ -7,8 +7,8 @@ Complete every item in order. **No camera or microphone needed.**
 ## Phase 0: AI Tool Setup (Before Day 1)
 
 - [ ] **Google account** for YouTube channel
-- [ ] **HeyGen** Creator plan — create James Reid avatar (see `avatar/AVATAR-PRODUCTION-GUIDE.md`)
-- [ ] **ElevenLabs** Creator — voice clone for James Reid
+- [ ] **HeyGen** Creator plan — create Charlotte Hayes avatar (see `avatar/AVATAR-PRODUCTION-GUIDE.md`)
+- [ ] **ElevenLabs** Creator — voice clone for Charlotte Hayes
 - [ ] **Higgsfield** Plus + MCP connector (`https://mcp.higgsfield.ai/mcp`) — B-roll + Soul character
 - [ ] **CapCut** Pro
 - [ ] **Canva** Pro — brand kit + lower thirds

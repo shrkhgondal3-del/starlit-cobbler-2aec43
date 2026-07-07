@@ -1,6 +1,6 @@
 # Saudi Gateway — AI-Only Production Playbook
 
-**100% AI pipeline.** No real camera, no human presenter — but includes **AI avatar host James Reid** for hooks, bridges, and CTAs.
+**100% AI pipeline.** No real camera, no human presenter — but includes **AI avatar host Charlotte Hayes** for hooks, bridges, and CTAs.
 
 ---
 
@@ -10,7 +10,7 @@ Best format for property/finance YouTube: trusted AI host + cinematic B-roll dep
 
 | Segment | Format | Tool |
 |---------|--------|------|
-| Hook, bridges, myth moments, close | **Avatar** (James Reid) | HeyGen |
+| Hook, bridges, myth moments, close | **Avatar** (Charlotte Hayes) | HeyGen |
 | Chapter body | **B-roll + graphics** | Higgsfield MCP (Kling/Veo) |
 | Voice (all segments) | Same voice clone | ElevenLabs |
 | Thumbnails | Avatar face | Higgsfield Soul or HeyGen still |
@@ -20,7 +20,7 @@ Full avatar setup: `avatar/AVATAR-PRODUCTION-GUIDE.md` and `avatar/CHARACTER-BIB
 
 | Layer | AI Tool | Output |
 |-------|---------|--------|
-| **Avatar clips** | HeyGen (James Reid) | hook, bridges, close MP4s |
+| **Avatar clips** | HeyGen (Charlotte Hayes) | hook, bridges, close MP4s |
 | **Script** | Claude Fable 5 + repo scripts | Markdown with AVATAR/B-ROLL markers |
 | **Voiceover** | ElevenLabs (voice clone) | MP3 per B-roll chapter |
 | **B-roll** | Higgsfield MCP (Kling/Veo) + Pexels | 4K clips per scene |
@@ -39,7 +39,7 @@ Script (.md with AVATAR markers)
     ↓
 prepare_video.py  →  voiceover.txt + broll_shotlist.json + production_brief.md
     ↓
-HeyGen  →  avatar clips (hook, bridges, close) — James Reid
+HeyGen  →  avatar clips (hook, bridges, close) — Charlotte Hayes
     ↓
 ElevenLabs  →  voice clone → B-roll chapter MP3s
     ↓
@@ -51,7 +51,7 @@ CapCut  →  stitch avatar + B-roll on timeline
     ↓
 CapCut captions + YouTube AR auto-translate
     ↓
-Soul/HeyGen still + Canva  →  3 thumbnails (with James Reid face)
+Soul/HeyGen still + Canva  →  3 thumbnails (with Charlotte Hayes face)
     ↓
 YouTube Studio  →  upload + synthetic content disclosure
     ↓
@@ -87,7 +87,7 @@ Or use pre-converted AI scripts in `content/scripts/ai-ready/`.
 
 | Setting | Value |
 |---------|-------|
-| **Voice** | "George" or "Daniel" (British, authoritative) OR "Rachel" (American, professional) |
+| **Voice** | "Charlotte" (British) or "Alice" (British, soft) | Stability 0.65, Speed 0.95 |
 | **Model** | Eleven Multilingual v2 |
 | **Stability** | 0.65 |
 | **Similarity** | 0.80 |

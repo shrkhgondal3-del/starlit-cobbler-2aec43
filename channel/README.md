@@ -15,7 +15,7 @@ A complete launch-and-growth system for a YouTube channel targeting **foreign in
 | **Upload Cadence** | 2 long-form videos/week + 3 Shorts/week |
 | **Language** | English (Arabic subtitles via YouTube auto-translate) |
 | **Production** | AI-only: HeyGen avatar + Higgsfield B-roll + ElevenLabs voice |
-| **Host** | James Reid (AI avatar) — see `avatar/CHARACTER-BIBLE.md` |
+| **Host** | Charlotte Hayes — glamorous British presenter (modest, culturally respectful) |
 
 ## Repository Structure
 
@@ -25,7 +25,7 @@ channel/
 ├── strategy/
 │   └── CHANNEL-STRATEGY.md
 ├── avatar/
-│   ├── CHARACTER-BIBLE.md           ← James Reid host spec
+│   ├── CHARACTER-BIBLE.md           ← Charlotte Hayes host spec
 │   └── AVATAR-PRODUCTION-GUIDE.md   ← HeyGen + Soul setup
 │   └── BRAND-GUIDE.md                ← AI visual identity + thumbnails
 ├── content/

@@ -1,231 +1,140 @@
 # Saudi Gateway — Avatar Production Guide
 
-How to create, train, and use **James Reid** across all videos.
+How to create, train, and use **Charlotte Hayes** across all videos.
 
 ---
 
 ## Recommended Format: Hybrid Avatar + Documentary
 
-The highest-performing format for finance/property YouTube in 2026:
-
 | Segment | Format | Duration per 15-min video |
 |---------|--------|---------------------------|
-| **Hook** | Avatar (James, direct to camera) | 0:00–0:30 |
-| **Chapter intros** | Avatar (5–10 sec bridge) | ~60 sec total |
+| **Hook** | Charlotte Hayes, direct to camera | 0:00–0:35 |
+| **Chapter bridges** | Avatar (5–10 sec) | ~60 sec total |
 | **Chapter body** | B-roll + motion graphics + voiceover | ~12 min |
-| **Key warnings / myths** | Avatar (emphasis moment) | ~30 sec |
-| **Close + CTA** | Avatar (subscribe, checklist) | 0:30–1:00 |
+| **Key warnings** | Avatar emphasis | ~15 sec |
+| **Close + CTA** | Avatar | 0:30–0:45 |
 
-**Result:** ~2.5 min avatar / ~12.5 min B-roll — trust of a host + depth of documentary.
-
----
-
-## Tool Choice: HeyGen vs Higgsfield Soul
-
-| Factor | HeyGen | Higgsfield Soul Character |
-|--------|--------|---------------------------|
-| **Avatar quality** | Industry-leading lip sync (Avatar IV) | Good, improving fast |
-| **Long-form** | Up to 5+ min per clip | Shorter clips (~15 sec–1 min) |
-| **Agent/MCP control** | API only | Native MCP (`create_character`, `generate_video`) |
-| **Voice clone** | Built-in | Use ElevenLabs + sync |
-| **Thumbnail stills** | Export frame | Soul generates consistent images |
-| **Price** | ~$24/mo Creator | Included in Higgsfield Plus $49 |
-| **Best for** | Long avatar segments (hooks, closes) | Character training + Shorts + thumbs |
-
-### Recommended stack (use both)
-
-```
-HeyGen          →  Long avatar clips (hook 30s, close 45s, chapter bridges 8s each)
-Higgsfield Soul →  Train same face for thumbnails, Shorts hooks, social stills
-ElevenLabs      →  Voice clone used in BOTH tools
-Higgsfield MCP  →  B-roll (Kling/Veo) + I orchestrate the full pipeline
-CapCut          →  Stitch avatar + B-roll on timeline
-```
-
-**If budget is tight ($49 only):** Higgsfield Soul only — shorter avatar clips, accept less lip-sync polish on long segments.
-
-**If quality is priority ($73/mo):** HeyGen Creator ($24) + Higgsfield Plus ($49).
+**Result:** ~2.5 min avatar / ~12.5 min B-roll.
 
 ---
 
-## Step-by-Step: Create James Reid Avatar
+## Cultural Sensitivity — Production Rules
+
+Before publishing any Charlotte Hayes clip:
+
+| Check | Requirement |
+|-------|-------------|
+| Wardrobe in frame | High neckline, sleeves to wrist, blazer on |
+| Gestures | Composed — no exaggerated or flirtatious movement |
+| HeyGen gesture setting | **Minimal** or **Disabled** |
+| Script language | Respectful of Kingdom laws; say "the Kingdom" where natural |
+| Same video B-roll | No alcohol, nightlife, or immodest stock near avatar cuts |
+| Hook disclaimer | Mentions AI production + educational purpose |
+
+Full guide: `CHARACTER-BIBLE.md` → Saudi Cultural Sensitivity section.
+
+---
+
+## Tool Stack
+
+```
+HeyGen          →  Avatar clips (Charlotte Hayes, modest professional look)
+Higgsfield Soul →  Thumbnails + Shorts hooks (same face)
+ElevenLabs      →  British female voice clone ("Charlotte" or "Alice")
+Higgsfield MCP  →  B-roll
+CapCut          →  Assembly
+```
+
+---
+
+## Step-by-Step: Create Charlotte Hayes Avatar
 
 ### Phase 1 — Generate reference images (30 min)
 
-Use **Higgsfield Soul**, **Midjourney**, or **Ideogram** to create 8–12 reference photos.
+Use prompts in `content/ai-prompts/AVATAR-REFERENCE-PROMPTS.md` (Images 01–08).
 
-**Master prompt (repeat with expression/angle variations):**
+**Quality gate:**
+- Same face in all 8 images
+- Modest neckline and sleeves in every shot
+- Discard any image that looks revealing or inconsistent
 
-```
-Professional headshot of a confident British businessman age 42, short dark brown hair with grey at temples, clean-shaven, navy blazer over white open-collar shirt, soft studio lighting, blurred modern office window with city skyline background, looking at camera, trustworthy expression, corporate video presenter style, photorealistic, 85mm portrait lens, shallow depth of field, no text, no watermark
-```
-
-**Variations to generate (one prompt each):**
-1. Neutral confident (default)
-2. Slight smile, welcoming
-3. Thoughtful, hand near chin
-4. Serious, explaining (brows slightly engaged)
-5. 3/4 angle left
-6. 3/4 angle right
-7. Straight on, wider framing (chest up)
-8. Same as #1 but 9:16 vertical crop composition
-
-**Quality gate:** All 8 must look like the **same person**. Discard any that drift.
-
-Save to `channel/avatar/james-reid-reference/`.
+Save to `channel/avatar/charlotte-hayes-reference/`.
 
 ---
 
 ### Phase 2A — Train on HeyGen (20 min)
 
-1. Go to [heygen.com](https://heygen.com) → **Avatars** → **Create Instant Avatar** or **Photo Avatar**
-2. Upload 8–12 reference images from Phase 1
-3. Name: `James Reid - Saudi Gateway`
-4. **Voice:** Upload ElevenLabs voice clone OR select "George" (British)
-5. Test with 30-second script:
+1. [heygen.com](https://heygen.com) → Avatars → **Photo Avatar**
+2. Upload 8 reference images
+3. Name: `Charlotte Hayes - Saudi Gateway`
+4. **Voice:** ElevenLabs clone (British female) — see Phase 3
+5. Test script:
 
 ```
-If you've heard that foreigners can't buy property in Saudi Arabia, you're working with outdated information. I'm James Reid, and on Saudi Gateway we break down exactly what foreign investors need to know about property and business in the Kingdom.
+If you've heard that foreigners can't buy property in Saudi Arabia, you're working with outdated information. I'm Charlotte Hayes from Saudi Gateway, and we help foreign investors navigate property and business in the Kingdom — with respect for Saudi law and culture.
 ```
 
-6. Review lip sync, eye contact, gestures — regenerate if uncanny
-7. Save **Avatar ID** to `avatar/james-reid-heygen-avatar-id.txt`
+6. Save Avatar ID → `avatar/charlotte-hayes-heygen-avatar-id.txt`
 
-**HeyGen settings for Saudi Gateway:**
+**HeyGen settings:**
 | Setting | Value |
 |---------|-------|
-| Aspect ratio | 16:9 (also export 9:16 for Shorts) |
-| Background | Custom: upload navy studio image OR blur office |
-| Gesture style | Minimal / professional |
+| Aspect ratio | 16:9 + 9:16 for Shorts |
+| Background | Custom office plate (see reference prompts) |
+| Gesture style | **Minimal** — critical for cultural tone |
 | Talking speed | 0.95x |
 
 ---
 
 ### Phase 2B — Train Soul Character on Higgsfield (15 min)
 
-*Skip if using HeyGen only. Do this if you connected Higgsfield MCP.*
-
-Via Higgsfield app or MCP prompt:
 ```
-Train a Soul Character named "James Reid" from these reference photos.
-Professional British investment advisor, navy blazer, white shirt, age 42.
-Use for consistent character across images and short video clips.
+Train a Soul Character named "Charlotte Hayes" from these reference photos.
+Elegant British female investment advisor, age 37, navy blazer, high-neck cream blouse, modest professional attire.
 ```
 
-Or MCP tool: `create_character` with uploaded references.
-
-Save character ID to `avatar/james-reid-soul-character-id.txt`.
-
-**Use Soul for:**
-- Thumbnail face stills (same face every video)
-- 15-second Shorts hooks
-- Instagram/LinkedIn promotional images
+Save ID → `avatar/charlotte-hayes-soul-character-id.txt`
 
 ---
 
 ### Phase 3 — Voice clone in ElevenLabs (15 min)
 
-1. Generate 3 minutes of clean speech (Script 01 hook + close, no music)
-2. ElevenLabs → **Voice Lab** → **Instant Voice Clone**
-3. Name: `James Reid - Saudi Gateway`
-4. Use this voice ID in:
-   - HeyGen avatar voice setting
-   - ElevenLabs B-roll narration (so avatar + voiceover match)
+1. ElevenLabs voice: **Charlotte** (British) or **Alice** as base
+2. Generate 3 min from Script 01 hook + close
+3. Voice Lab → Instant Voice Clone → `Charlotte Hayes - Saudi Gateway`
+4. Use in HeyGen + all B-roll narration
 
-Save ID to `avatar/james-reid-voice-clone-id.txt`.
+Save ID → `avatar/charlotte-hayes-voice-clone-id.txt`
 
 ---
 
-### Phase 4 — Produce avatar clips per video (45 min)
+### Phase 4 — Produce clips per video
 
-For each long-form video, generate these **HeyGen clips** separately:
+Use `content/scripts/01-foreigners-buy-property-ksa-AVATAR.md` for ready-to-paste scripts.
 
-| Clip | Script source | Target length |
-|------|---------------|---------------|
-| `hook.mp4` | Script HOOK section | 25–35 sec |
-| `bridge-ch1.mp4` | "Let's start with how the rules actually changed." | 5–8 sec |
-| `bridge-ch2.mp4` | Chapter 2 one-liner bridge | 5–8 sec |
-| ... | One bridge per chapter (optional — min 3) | 5–8 sec |
-| `myth-emphasis.mp4` | "Here's what most people get wrong." | 10–15 sec |
-| `close.mp4` | Script CLOSE section | 30–45 sec |
-
-**Tip:** Generate all clips in one HeyGen session while avatar settings are fresh.
+| Clip | Length |
+|------|--------|
+| hook.mp4 | 30–35 sec |
+| bridge-*.mp4 | 5–8 sec each |
+| myth-emphasis.mp4 | 12–15 sec |
+| close.mp4 | 40–45 sec |
 
 ---
 
-### Phase 5 — Assemble in CapCut (hybrid timeline)
+### Phase 5 — CapCut assembly
 
 ```
-Timeline:
-[0:00]  hook.mp4          ← AVATAR
-[0:30]  broll + VO ch1    ← DOCUMENTARY
-[2:20]  bridge-ch2.mp4    ← AVATAR (8 sec)
-[2:28]  broll + VO ch2    ← DOCUMENTARY
-...
-[14:00] myth-emphasis.mp4 ← AVATAR
-[14:15] broll montage     ← DOCUMENTARY
-[15:00] close.mp4         ← AVATAR
-```
-
-**Transitions:** Simple cut or 0.3s cross-dissolve — no flashy wipes.
-
----
-
-## Shorts With Avatar
-
-Every Short should open with **James Reid face + hook** for 3–5 seconds, then cut to B-roll.
-
-| Seconds | Content |
-|---------|---------|
-| 0–3 | Avatar: bold hook line |
-| 3–45 | B-roll + captions + voiceover |
-| 45–50 | Avatar or end card: "Full guide on Saudi Gateway" |
-
-Generate Shorts avatar hooks in **HeyGen 9:16** or **Higgsfield Soul** vertical.
-
----
-
-## Avatar Clip Scripts — Video 01 (Ready to Paste)
-
-### hook.mp4 (30 sec)
-```
-If you've heard that foreigners can't buy property in Saudi Arabia — you're working with outdated information. In 2026, the rules have changed dramatically. Depending on your nationality, residency status, and where you want to buy, you may have more options than you think. I'm James Reid from Saudi Gateway, and in the next fifteen minutes I'll walk you through exactly who can buy, where, what it costs, and the mistakes that catch foreign buyers off guard.
-```
-
-### bridge-premium-residency.mp4 (8 sec)
-```
-The most important pathway for many foreigners is Premium Residency. Here's how it works.
-```
-
-### bridge-designated-zones.mp4 (8 sec)
-```
-If you don't have Premium Residency, designated development zones are your main option. Let me break down what to verify.
-```
-
-### myth-emphasis.mp4 (12 sec)
-```
-Five mistakes I see constantly. Number one: assuming Dubai rules apply in Saudi Arabia. They don't. This is a completely separate legal system.
-```
-
-### close.mp4 (40 sec)
-```
-Saudi Arabia's property market for foreigners is real and growing — but it's not a free-for-all. Your eligibility depends on your status, the zone, and the specific project. Download our free Foreign Buyer's Checklist — link below. Subscribe for next week's guide on starting a business in Saudi Arabia as a foreigner. Comment below with your situation — we read every one.
+[0:00]  hook.mp4 (Charlotte)
+[0:35]  B-roll + VO
+[...]   bridges + B-roll alternating
+[14:00] close.mp4 (Charlotte)
 ```
 
 ---
 
-## Monthly Avatar Production Checklist
+## Shorts
 
-Per 2 long-form videos/week:
-
-| Task | Time | Tool |
-|------|------|------|
-| 2× hook clips | 20 min | HeyGen |
-| 2× close clips | 20 min | HeyGen |
-| 6–10× bridge clips | 30 min | HeyGen |
-| 6× Shorts avatar hooks | 20 min | HeyGen or Soul |
-| 6× thumbnail face stills | 15 min | Higgsfield Soul |
-| **Total** | **~2 hrs/week** | |
+Open every Short with Charlotte (3–5 sec, 9:16), then B-roll. Scripts in AVATAR script file.
 
 ---
 
@@ -233,12 +142,11 @@ Per 2 long-form videos/week:
 
 | Problem | Fix |
 |---------|-----|
-| Lip sync drifts on long clips | Keep avatar clips under 45 sec; split into segments |
-| Face looks different between videos | Re-use same HeyGen avatar ID; never retrain unless intentional |
-| Voice doesn't match B-roll | Use same ElevenLabs clone for avatar + narration |
-| Uncanny valley / distrust | Reduce gesture intensity; use avatar for hooks only (30% format) |
-| YouTube synthetic media flag | Enable disclosure; add spoken disclaimer in hook |
+| Avatar feels "too glamorous" for topic | Reduce makeup in reference images; simpler hair |
+| Concern from Saudi viewers | Verify modest dress in every frame; optional hijab variant Phase 2 |
+| Voice too soft | Increase ElevenLabs stability to 0.70; slight clarity boost |
+| Lip sync on long clips | Keep clips under 45 sec |
 
 ---
 
-*Avatar production guide v1.0*
+*Avatar production guide v2.0 — Charlotte Hayes*

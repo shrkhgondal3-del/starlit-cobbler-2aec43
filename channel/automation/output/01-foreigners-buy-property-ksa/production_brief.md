@@ -9,7 +9,7 @@
 
 ## Step 1: Voiceover (ElevenLabs)
 
-Voice: George or Daniel (British) | Model: Multilingual v2 | Stability: 0.65
+Voice: Charlotte or Alice (British female) | Model: Multilingual v2 | Stability: 0.65
 
 Generate one MP3 per chapter:
 

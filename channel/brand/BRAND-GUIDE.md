@@ -41,9 +41,9 @@ Icon: Minimal arched gateway silhouette (suggestive of historic Diriyah architec
 
 **Do not:** Use the Saudi flag as a logo element. Use green/gold palette as cultural reference only.
 
-## Thumbnail System (Avatar Face — James Reid)
+## Thumbnail System (Avatar Face — Charlotte Hayes)
 
-Use **James Reid** on every thumbnail — same trained face builds recognition and lifts CTR.
+Use **Charlotte Hayes** on every thumbnail — same trained face builds recognition and lifts CTR.
 
 **Pipeline:** HeyGen/Soul still export → Canva text overlay → 1280×720
 
@@ -99,7 +99,7 @@ Full pipeline: `operations/AI-PRODUCTION-PLAYBOOK.md`
 - **Cut rhythm:** New visual every 4–6 seconds (critical for AI retention)
 
 ### Audio
-- **Voice:** ElevenLabs — George or Daniel, stability 0.65, speed 0.95
+- **Voice:** ElevenLabs — Charlotte or Alice (British female), stability 0.65, speed 0.95
 - **Music:** CapCut royalty-free or Epidemic Sound — **-20dB under voice**
 - **No mic needed**
 
@@ -163,7 +163,7 @@ Instagram: [handle]
 | Setting | Value |
 |---------|-------|
 | Tool | ElevenLabs Multilingual v2 |
-| Voice | George (British) or Daniel — authoritative, calm |
+| Voice | Charlotte or Alice (British female) — glamorous, composed, professional |
 | Stability | 0.65 |
 | Similarity | 0.80 |
 | Style | 0.15 |

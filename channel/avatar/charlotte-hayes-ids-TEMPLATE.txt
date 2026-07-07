@@ -1,0 +1,24 @@
+# Placeholder — add your IDs after avatar setup
+
+## HeyGen
+Avatar name: Charlotte Hayes - Saudi Gateway
+Avatar ID: [paste after creation]
+
+## ElevenLabs Voice Clone
+Voice name: Charlotte Hayes - Saudi Gateway
+Base voice: Charlotte (British) or Alice (British)
+Voice ID: [paste after clone]
+
+## Higgsfield Soul Character
+Character name: Charlotte Hayes
+Character ID: [paste after Soul training]
+
+## Cultural review
+- [ ] All reference images: modest neckline + sleeves verified
+- [ ] HeyGen gesture setting: Minimal
+- [ ] Hook disclaimer recorded
+
+## Notes
+- Created: [date]
+- Reference images: charlotte-hayes-reference/ (8 photos)
+- Optional hijab variant (Phase 2): not yet created
