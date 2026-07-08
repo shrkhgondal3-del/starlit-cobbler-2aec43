@@ -9,6 +9,10 @@ import sys
 import urllib.error
 import urllib.request
 
+import api_config
+
+api_config.load_env_files()
+
 OK = "✓"
 FAIL = "✗"
 
@@ -158,8 +162,8 @@ def main() -> int:
     print("API keys not fully working — you can still produce Video 01:")
     print("  cd channel/automation && python3 produce_video.py")
     print()
-    print("Fix keys: channel/FIX-API-KEYS.md")
-    print("Secrets:  https://cursor.com/dashboard/cloud-agents → Secrets (desktop browser)")
+    print("Fix keys: python3 setup_api_keys.py")
+    print("Guide:   channel/FIX-API-KEYS.md")
     print("Then start a NEW Cloud Agent.")
     return 1
 

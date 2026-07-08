@@ -139,8 +139,10 @@ curl -s "https://api.heygen.com/v1/user/me" -H "X-Api-Key: YOUR_KEY_HERE"
 
 ```bash
 cd channel/automation
-python3 check_setup.py
+python3 setup_api_keys.py
 ```
+
+Shows exactly which keys work and which don't.
 
 Then produce:
 ```bash

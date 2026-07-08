@@ -17,6 +17,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import api_config
+
 ROOT = Path(__file__).parent
 SCRIPT = ROOT.parent / "content/scripts/01-foreigners-buy-property-ksa.md"
 VOICE_ID = "Xb7hH8MSUJpSbSDYk0k2"
@@ -36,8 +38,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="One-command Video 01 production")
     parser.add_argument("--video-id", default=DEFAULT_VIDEO)
     parser.add_argument("--allow-placeholders", action="store_true")
+    parser.add_argument("--premium", action="store_true", help="Require HeyGen + B-roll APIs")
     args = parser.parse_args()
 
+    api_config.load_env_files()
     project = ROOT / "projects" / args.video_id
     prep = ROOT / "output" / args.video_id
 
@@ -66,33 +70,33 @@ def main() -> int:
 
     # 3. Voiceovers — ElevenLabs if key set, else keep existing
     print("\n[3/7] Voiceovers …")
-    import os
-    if os.environ.get("ELEVENLABS_API_KEY"):
+    if api_config.elevenlabs_configured():
         run([
             sys.executable, str(ROOT / "elevenlabs_generate.py"),
-            "--voice-id", os.environ.get("ELEVENLABS_VOICE_ID", VOICE_ID),
+            "--voice-id", api_config.get("ELEVENLABS_VOICE_ID", VOICE_ID),
             "--input-dir", str(prep / "voiceover_chapters"),
             "--output-dir", str(project / "voiceover"),
         ])
     else:
         print("  ELEVENLABS_API_KEY not set — using existing voiceover/*.mp3 if present")
 
-    # 4. Avatars — HeyGen API if valid, else fallback
+    # 4. Avatars — HeyGen v3 API if valid, else fallback
     print("\n[4/7] Avatar clips …")
-    heygen_ok = run([sys.executable, str(ROOT / "check_setup.py")]) == 0
-    if heygen_ok and os.environ.get("HEYGEN_API_KEY"):
+    if api_config.heygen_configured() and api_config.get("HEYGEN_AVATAR_ID"):
         if run([sys.executable, str(ROOT / "heygen_generate.py"), "--project", str(project)]) != 0:
             print("  HeyGen failed — using avatar fallback")
             run([sys.executable, str(ROOT / "generate_avatar_fallback.py")])
     else:
+        if api_config.heygen_configured():
+            print("  HeyGen key set but HEYGEN_AVATAR_ID missing — fallback")
         run([sys.executable, str(ROOT / "generate_avatar_fallback.py")])
 
-    # 5. B-roll — Higgsfield if keys, else stock + FFmpeg
+    # 5. B-roll — Higgsfield → Pexels → Mixkit → FFmpeg
     print("\n[5/7] B-roll …")
-    hf_key = os.environ.get("HIGGSFIELD_API_KEY") and os.environ.get("HIGGSFIELD_API_SECRET")
-    if hf_key:
+    if api_config.higgsfield_configured():
         run([sys.executable, str(ROOT / "higgsfield_generate.py"), "--project", str(project)])
-
+    if api_config.pexels_configured():
+        run([sys.executable, str(ROOT / "fetch_pexels_broll.py")])
     run([sys.executable, str(ROOT / "fetch_stock_broll.py")])
 
     from generate_broll_ffmpeg import CHAPTER_CLIPS, make_clip

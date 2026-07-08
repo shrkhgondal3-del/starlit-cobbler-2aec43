@@ -1,5 +1,6 @@
 # Secrets — never commit
 .env
+local.env
 *.env.local
 
 # Generated production assets — do not commit large media
