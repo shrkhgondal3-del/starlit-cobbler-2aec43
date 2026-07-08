@@ -1,7 +1,7 @@
 # Video 01 — Watch & Download
 
 **Title:** Can Foreigners Buy Property in Saudi Arabia? (2026)  
-**Duration:** ~8.7 minutes · 1080p
+**Duration:** ~8.4 minutes · 1080p · **HeyGen Charlotte Hayes avatars** (4/5 clips; close uses fallback until wallet top-up)
 
 ---
 
