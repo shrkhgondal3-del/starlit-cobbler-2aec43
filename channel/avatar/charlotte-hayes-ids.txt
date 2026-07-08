@@ -1,0 +1,6 @@
+Charlotte Hayes — HeyGen Photo Avatar
+Avatar group ID: d985b19b5ae04c14962326db0d36c0c8
+Name in HeyGen: Charlotte Hayes
+Default voice_id: dc44cce2502749a389d12b9baf4a0e5f
+
+Set in Cursor Secrets as HEYGEN_AVATAR_ID=d985b19b5ae04c14962326db0d36c0c8

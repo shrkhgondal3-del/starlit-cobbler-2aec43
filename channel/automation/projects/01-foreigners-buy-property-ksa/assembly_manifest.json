@@ -1,0 +1,137 @@
+{
+  "video_id": "01-foreigners-buy-property-ksa",
+  "title": "Can Foreigners Buy Property in Saudi Arabia? (2026)",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "clip_duration_target_sec": 5.5,
+  "music": {
+    "file": "assets/music/background.mp3",
+    "volume": 0.07,
+    "optional": true
+  },
+  "disclaimer_overlay": {
+    "text": "AI-assisted production \u00b7 Educational only \u00b7 Not legal advice",
+    "duration_sec": 3,
+    "optional": true
+  },
+  "segments": [
+    {
+      "type": "avatar",
+      "file": "avatar/hook.mp4"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-1-the-old-rule-vs-todays-reality.mp3",
+      "broll_dir": "broll/chapter-1",
+      "chapter_id": "chapter-1"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-2-gcc-nationals.mp3",
+      "broll_dir": "broll/chapter-2",
+      "chapter_id": "chapter-2"
+    },
+    {
+      "type": "avatar",
+      "file": "avatar/bridge-ch3.mp4"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-3-premium-residency-route.mp3",
+      "broll_dir": "broll/chapter-3",
+      "chapter_id": "chapter-3"
+    },
+    {
+      "type": "avatar",
+      "file": "avatar/bridge-ch4.mp4"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-4-designated-zones-developer-projects.mp3",
+      "broll_dir": "broll/chapter-4",
+      "chapter_id": "chapter-4"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-5-buying-through-a-saudi-company.mp3",
+      "broll_dir": "broll/chapter-5",
+      "chapter_id": "chapter-5"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-6-the-purchase-process-step-by-step.mp3",
+      "broll_dir": "broll/chapter-6",
+      "chapter_id": "chapter-6"
+    },
+    {
+      "type": "avatar",
+      "file": "avatar/myth-emphasis.mp4"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-7-financing-mortgages.mp3",
+      "broll_dir": "broll/chapter-7",
+      "chapter_id": "chapter-7"
+    },
+    {
+      "type": "broll_vo",
+      "audio": "voiceover/chapter-8-common-mistakes.mp3",
+      "broll_dir": "broll/chapter-8",
+      "chapter_id": "chapter-8"
+    },
+    {
+      "type": "avatar",
+      "file": "avatar/close.mp4"
+    }
+  ],
+  "chapters_meta": [
+    {
+      "id": "chapter-1-the-old-rule-vs-todays-reality",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-1-the-old-rule-vs-todays-reality.txt"
+    },
+    {
+      "id": "chapter-2-gcc-nationals",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-2-gcc-nationals.txt"
+    },
+    {
+      "id": "chapter-3-premium-residency-route",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-3-premium-residency-route.txt"
+    },
+    {
+      "id": "chapter-4-designated-zones-developer-projects",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-4-designated-zones-developer-projects.txt"
+    },
+    {
+      "id": "chapter-5-buying-through-a-saudi-company",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-5-buying-through-a-saudi-company.txt"
+    },
+    {
+      "id": "chapter-6-the-purchase-process-step-by-step",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-6-the-purchase-process-step-by-step.txt"
+    },
+    {
+      "id": "chapter-7-financing-mortgages",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-7-financing-mortgages.txt"
+    },
+    {
+      "id": "chapter-8-common-mistakes",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/chapter-8-common-mistakes.txt"
+    },
+    {
+      "id": "close-close",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/close-close.txt"
+    },
+    {
+      "id": "hook-hook",
+      "text_file": "/workspace/channel/automation/output/01-foreigners-buy-property-ksa/voiceover_chapters/hook-hook.txt"
+    }
+  ],
+  "output": {
+    "video": "output/final.mp4",
+    "subtitles": "output/subtitles.srt",
+    "chapters": "output/chapters.txt"
+  }
+}

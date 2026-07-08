@@ -1,0 +1,118 @@
+{
+  "script": "02-start-business-saudi-foreigner.md",
+  "title": "02 \u2014 How to Start a Business in Saudi Arabia as a Foreigner (Step by Step)",
+  "total_scenes": 10,
+  "scenes": [
+    {
+      "chapter": "hook-hook",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-1-choose-your-path",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-2-misa-your-first-stop",
+      "keyword": "misa",
+      "type": "video",
+      "ai_prompt": "Professional working on laptop in modern office, government portal, over-shoulder, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "business laptop office",
+        "corporate office middle east"
+      ],
+      "on_screen_label": null,
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-3-commercial-registration",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-4-post-registration-essentials",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-5-costs",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-6-saudization-hiring",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-7-rhq-when-it-makes-sense",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-8-top-7-mistakes",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "close-close",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    }
+  ]
+}

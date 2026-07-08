@@ -1,0 +1,158 @@
+{
+  "script": "01-foreigners-buy-property-ksa.md",
+  "title": "01 \u2014 Can Foreigners Buy Property in Saudi Arabia? (2026 Complete Guide)",
+  "total_scenes": 14,
+  "scenes": [
+    {
+      "chapter": "hook-hook",
+      "keyword": "riyadh",
+      "type": "video",
+      "ai_prompt": "Aerial drone shot of modern Riyadh skyline at golden hour, Kingdom Centre visible, cinematic, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "riyadh skyline",
+        "saudi arabia city aerial"
+      ],
+      "on_screen_label": null,
+      "duration_sec": 6
+    },
+    {
+      "chapter": "hook-hook",
+      "keyword": "rega",
+      "type": "video",
+      "ai_prompt": "Modern government administrative building exterior, formal architecture, establishing shot, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "government building",
+        "official documents desk"
+      ],
+      "on_screen_label": null,
+      "duration_sec": 6
+    },
+    {
+      "chapter": "hook-hook",
+      "keyword": "property",
+      "type": "video",
+      "ai_prompt": "Luxury modern apartment exterior Middle Eastern city, palm trees, slow pan, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "luxury apartment building",
+        "real estate exterior"
+      ],
+      "on_screen_label": null,
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-1-the-old-rule-vs-todays-reality",
+      "keyword": "flowchart",
+      "type": "motion_graphic",
+      "ai_prompt": "Motion graphic flowchart on dark navy background, green and gold accents, cinematic documentary, 4K, no text",
+      "stock_search": [],
+      "on_screen_label": null,
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-1-the-old-rule-vs-todays-reality",
+      "keyword": "flowchart",
+      "type": "motion_graphic",
+      "ai_prompt": "Motion graphic flowchart on dark navy background, green and gold accents",
+      "stock_search": [],
+      "duration_sec": 8,
+      "notes": "Build in Canva \u2014 export PNG sequence or MP4"
+    },
+    {
+      "chapter": "chapter-2-gcc-nationals",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-3-premium-residency-route",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-4-designated-zones-developer-projects",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-5-buying-through-a-saudi-company",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-6-the-purchase-process-step-by-step",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-6-the-purchase-process-step-by-step",
+      "keyword": "flowchart",
+      "type": "motion_graphic",
+      "ai_prompt": "Motion graphic flowchart on dark navy background, green and gold accents",
+      "stock_search": [],
+      "duration_sec": 8,
+      "notes": "Build in Canva \u2014 export PNG sequence or MP4"
+    },
+    {
+      "chapter": "chapter-7-financing-mortgages",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "chapter-8-common-mistakes",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    },
+    {
+      "chapter": "close-close",
+      "keyword": "default",
+      "type": "video",
+      "ai_prompt": "Professional Saudi Arabian business cityscape, modern development, cinematic documentary, cinematic documentary, 4K, no text",
+      "stock_search": [
+        "saudi arabia",
+        "middle east business"
+      ],
+      "duration_sec": 6
+    }
+  ]
+}
