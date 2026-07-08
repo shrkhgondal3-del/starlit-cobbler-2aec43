@@ -1,0 +1,44 @@
+{
+  "source": "mixkit",
+  "chapters": {
+    "chapter-1": [
+      "riyadh",
+      "rega",
+      "property",
+      "default"
+    ],
+    "chapter-2": [
+      "boardroom",
+      "default"
+    ],
+    "chapter-3": [
+      "property",
+      "desert",
+      "default"
+    ],
+    "chapter-4": [
+      "property",
+      "desert",
+      "default"
+    ],
+    "chapter-5": [
+      "boardroom",
+      "misa",
+      "default"
+    ],
+    "chapter-6": [
+      "rega",
+      "misa",
+      "default"
+    ],
+    "chapter-7": [
+      "property",
+      "boardroom",
+      "default"
+    ],
+    "chapter-8": [
+      "rega",
+      "default"
+    ]
+  }
+}
