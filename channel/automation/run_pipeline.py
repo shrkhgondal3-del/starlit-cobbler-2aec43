@@ -56,6 +56,8 @@ def main() -> int:
     p_all.add_argument("--script", type=Path, required=True)
     p_all.add_argument("--video-id", default=None)
 
+    sub.add_parser("produce", help="One-command Video 01 (no keys required)")
+
     args = parser.parse_args()
 
     if args.command == "prepare":
@@ -99,6 +101,9 @@ def main() -> int:
             "--prep-dir", str(prep),
             "--project-dir", str(project),
         ])
+
+    if args.command == "produce":
+        return run_py("produce_video.py", [])
 
     return 1
 

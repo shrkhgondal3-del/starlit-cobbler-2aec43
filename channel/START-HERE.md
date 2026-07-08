@@ -1,6 +1,27 @@
-# Saudi Gateway — START HERE (10 minutes)
+# Saudi Gateway — START HERE
 
-Do these steps in order. Ignore MCP / Connect buttons — they don't work reliably on Cloud Agents.
+## Your video is already done
+
+**Watch / download:** `channel/deliverables/VIDEO-LINK.md`
+
+**Stuck on API keys?** Read `channel/FIX-API-KEYS.md` — you can skip them entirely.
+
+---
+
+## Make another video (one command)
+
+```bash
+cd channel/automation
+python3 produce_video.py
+```
+
+No HeyGen/Higgsfield keys required.
+
+---
+
+## Optional: premium APIs (only if you want automation)
+
+Do these steps in order. **Ignore MCP / Connect buttons** — they don't work reliably on Cloud Agents.
 
 ---
 
@@ -15,7 +36,7 @@ Do these steps in order. Ignore MCP / Connect buttons — they don't work reliab
 ## STEP 2 — Copy your API keys
 
 ### HeyGen
-1. Open https://app.heygen.com/settings/api
+1. Open https://app.heygen.com/settings?nav=API
 2. Click **Create API Key**
 3. Copy the key
 4. Top up API wallet (~$5 minimum) if asked

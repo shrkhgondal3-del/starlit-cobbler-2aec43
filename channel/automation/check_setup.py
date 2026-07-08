@@ -57,25 +57,51 @@ def check_heygen() -> bool:
     key = check_env("HEYGEN_API_KEY")
     if not key:
         print(f"{FAIL} HeyGen — HEYGEN_API_KEY not set")
-        print("    Get key: https://app.heygen.com/settings/api")
+        print("    Get key: https://app.heygen.com/settings?nav=API")
+        print("    Or skip keys: python3 produce_video.py  (see ../FIX-API-KEYS.md)")
         return False
-    try:
-        status, data = http_get(
-            "https://api.heygen.com/v2/avatars",
-            {"X-Api-Key": key},
-        )
-        avatar_id = check_env("HEYGEN_AVATAR_ID")
-        avatar_note = f", Charlotte avatar: {avatar_id}" if avatar_id else ", HEYGEN_AVATAR_ID not set (train Charlotte first)"
-        count = len(data.get("data", {}).get("avatars", data.get("data", [])))
-        print(f"{OK} HeyGen — API key valid (HTTP {status}), {count} avatars visible{avatar_note}")
-        return True
-    except urllib.error.HTTPError as e:
-        body = e.read().decode()[:200] if e.fp else ""
-        print(f"{FAIL} HeyGen — HTTP {e.code}: {body}")
+
+    # Detect common paste mistakes
+    if key.startswith("sk_V2_") and len(key) < 40:
+        print(f"{FAIL} HeyGen — key looks truncated or wrong type")
+        print("    Create a new API key (not Agent key) at app.heygen.com/settings?nav=API")
         return False
-    except Exception as e:
-        print(f"{FAIL} HeyGen — {e}")
-        return False
+
+    endpoints = [
+        "https://api.heygen.com/v1/user/me",
+        "https://api.heygen.com/v2/avatars",
+    ]
+    last_err = ""
+    for url in endpoints:
+        try:
+            status, data = http_get(url, {"X-Api-Key": key})
+            avatar_id = check_env("HEYGEN_AVATAR_ID")
+            avatar_note = (
+                f", Charlotte avatar: {avatar_id}"
+                if avatar_id
+                else ", HEYGEN_AVATAR_ID not set (optional — uses Video Agent)"
+            )
+            code = data.get("code")
+            if code == 100 or status == 200:
+                print(f"{OK} HeyGen — API key valid ({url}){avatar_note}")
+                return True
+            print(f"{OK} HeyGen — API key valid (HTTP {status}){avatar_note}")
+            return True
+        except urllib.error.HTTPError as e:
+            last_err = e.read().decode()[:300] if e.fp else str(e)
+            if e.code != 401:
+                break
+
+    print(f"{FAIL} HeyGen — HTTP 401 Unauthorized")
+    print(f"    Response: {last_err}")
+    print("    FIX:")
+    print("      1. Open https://app.heygen.com/settings?nav=API")
+    print("      2. Delete old key → Create new API key (type: API, not Agent)")
+    print("      3. Top up API wallet: https://www.heygen.com/api-pricing")
+    print("      4. Paste into Cursor Secrets as HEYGEN_API_KEY")
+    print("      5. Start a NEW Cloud Agent")
+    print("    OR skip HeyGen: python3 produce_video.py  (see channel/FIX-API-KEYS.md)")
+    return False
 
 
 def check_higgsfield() -> bool:
@@ -126,10 +152,15 @@ def main() -> int:
     ]
     print()
     if all(results):
-        print("All systems ready. Agent can produce Video 01.")
+        print("All systems ready. Agent can produce Video 01 with premium APIs.")
         return 0
-    print("Fix missing secrets at: https://cursor.com/dashboard/cloud-agents → Secrets")
-    print("Then start a NEW Cloud Agent and run this check again.")
+    print()
+    print("API keys not fully working — you can still produce Video 01:")
+    print("  cd channel/automation && python3 produce_video.py")
+    print()
+    print("Fix keys: channel/FIX-API-KEYS.md")
+    print("Secrets:  https://cursor.com/dashboard/cloud-agents → Secrets (desktop browser)")
+    print("Then start a NEW Cloud Agent.")
     return 1
 
 
