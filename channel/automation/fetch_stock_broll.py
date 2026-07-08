@@ -58,7 +58,9 @@ def download(url: str, dest: Path) -> bool:
         if dest.exists() and dest.stat().st_size > 10000:
             return True
         print(f"  Downloading {dest.name}...")
-        urllib.request.urlretrieve(url, dest)
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; SaudiGateway/1.0)"})
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            dest.write_bytes(resp.read())
         return dest.exists() and dest.stat().st_size > 1000
     except Exception as e:
         print(f"  Failed {dest.name}: {e}")

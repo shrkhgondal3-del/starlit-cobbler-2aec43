@@ -2,14 +2,14 @@
 
 0:00 hook
 0:46 chapter-1
-1:52 chapter-2
-2:19 bridge-ch3
-2:27 chapter-3
-3:33 bridge-ch4
-3:41 chapter-4
-4:56 chapter-5
-5:39 chapter-6
-6:46 myth-emphasis
-7:01 chapter-7
-7:38 chapter-8
-8:09 close
+1:51 chapter-2
+2:17 bridge-ch3
+2:25 chapter-3
+3:32 bridge-ch4
+3:40 chapter-4
+4:54 chapter-5
+5:37 chapter-6
+6:44 myth-emphasis
+6:59 chapter-7
+7:36 chapter-8
+8:07 close
