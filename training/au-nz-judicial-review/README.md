@@ -1,24 +1,21 @@
-# AU / NZ Judicial Review Training Manual (Pakistan Team)
+# AU / NZ Visa Refusal → Appeal → JR Practice Manual (v2)
 
 **PDF:** [`AU-NZ-Judicial-Review-Training-Manual.pdf`](./AU-NZ-Judicial-Review-Training-Manual.pdf)
 
-Practitioner-grade A–Z training for guiding **self-represented** clients through judicial review of refused visa applications in:
+## What this version fixes (client feedback)
 
-- **Australia** — FCFCOA (Division 2) / Federal Court migration JR
-- **New Zealand** — High Court leave (s 249) / JR (s 247) after IPT where required
+1. **Starts at the Embassy door** — client walks in right after student/visitor refusal in Pakistan; team handles start-to-end  
+2. **Professional drafting** — full ART submissions structure + filing-ready JR Originating Application grounds + full Affidavit + Outline of Submissions  
+3. **Complete paperwork path** — forms index, fee schedules (ART / FCFCOA / IPT / High Court), **how to pay**, **how to e-file**  
+4. **Settlement without hearing** — green flags at Department, ART/IPT, and JR stages (consent remittal, mediation, discontinuance)
 
-## Contents
+## Pathway covered
 
-1. Merits review vs judicial review
-2. Decision map (which stage / which court)
-3. Australia end-to-end (deadlines, grounds, filing, hearing)
-4. New Zealand end-to-end (ss 247 & 249, leave, filing)
-5. Full worked **scenario case** (Subclass 500 / ART → JR)
-6. Complete drafting templates (application, affidavit, NZ leave, submissions, service)
-7. Forms directory + official links
-8. Team SOPs, ethics, assessment checklist
+`Embassy refusal → ART / IPT merits appeal → Judicial Review → remittal / final outcome`
 
-## Regenerate PDF
+Self-represented client model throughout.
+
+## Regenerate
 
 ```bash
 cd training/au-nz-judicial-review
@@ -27,4 +24,4 @@ python3 generate_jr_training_pdf.py
 
 ## Disclaimer
 
-Educational / internal training only. Not legal advice. Verify forms, fees, and practice directions on official court websites before filing.
+Internal training only. Verify live fees and forms on official websites before filing.
